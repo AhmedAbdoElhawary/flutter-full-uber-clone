@@ -13,7 +13,7 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          children: [
+          children: const [
 
           ],
         ),

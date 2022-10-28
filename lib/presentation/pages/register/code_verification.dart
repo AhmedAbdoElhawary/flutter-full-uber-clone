@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:uber/config/routes/route_app.dart';
+import 'package:uber/core/functions/toast_show.dart';
 import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/core/resources/styles_manager.dart';
+import 'package:uber/presentation/common_widgets/custom_elevated_button.dart';
 import 'package:uber/presentation/cubit/firebaseAuthCubit/firebase_auth_cubit.dart';
 import 'package:uber/presentation/pages/kind_of_register/kind_of_register.dart';
-import 'package:uber/presentation/widgets/belong_to/register/next_button.dart';
-import 'package:uber/presentation/widgets/common/custom_widgets/custom_elevated_button.dart';
+import 'package:uber/presentation/pages/register/widgets/next_button.dart';
 
 class CodeVerificationPage extends StatefulWidget {
   final String mobilePhone;
@@ -71,7 +72,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                   },
                 ),
               ),
-              const DidNotReceiveCodeButton(),
+              const _DidNotReceiveCodeButton(),
               const Spacer(),
               Padding(
                 padding: REdgeInsets.only(bottom: 35.0),
@@ -84,39 +85,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                         },
                         child: Icon(Icons.arrow_back, size: 30.r)),
                     const Spacer(),
-                    ValueListenableBuilder(
-                      valueListenable: otpCode,
-                      builder: (context, String? otpCodeValue, child) {
-                        bool enableNextButton =
-                            otpCodeValue != null && otpCodeValue.length == 6;
-                        return BlocBuilder<FirebaseAuthCubit,
-                            FirebaseAuthCubitState>(
-                          buildWhen: (previous, current) => previous != current,
-                          builder: (context, state) {
-                            if (state is OTPSubmitted) {
-                              WidgetsBinding.instance.addPostFrameCallback((_) {
-                                pushToPage(context,
-                                    page: GetPersonalInfo(
-                                      userId: state.userUid,
-                                      phoneNumber: widget.mobilePhone,
-                                    ));
-                              });
-                            }
-
-                            return NextButton(
-                              enableButton: enableNextButton,
-                              onPressed: () async {
-                                if (enableNextButton) {
-                                  otpCode.value = null;
-                                  await FirebaseAuthCubit.get(context)
-                                      .submitOTP(otpCodeValue);
-                                }
-                              },
-                            );
-                          },
-                        );
-                      },
-                    ),
+                    _BuildNextButton(otpCode: otpCode, widget: widget),
                   ],
                 ),
               )
@@ -128,8 +97,50 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
   }
 }
 
-class DidNotReceiveCodeButton extends StatelessWidget {
-  const DidNotReceiveCodeButton({Key? key}) : super(key: key);
+class _BuildNextButton extends StatelessWidget {
+  const _BuildNextButton(
+      {Key? key, required this.otpCode, required this.widget})
+      : super(key: key);
+
+  final ValueNotifier<String?> otpCode;
+  final CodeVerificationPage widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: otpCode,
+      builder: (context, String? otpCodeValue, child) {
+        bool enableNextButton =
+            otpCodeValue != null && otpCodeValue.length == 6;
+        return BlocListener<FirebaseAuthCubit, FirebaseAuthCubitState>(
+          listenWhen: (previous, current) => previous != current,
+          listener: nextButtonListener,
+          child: NextButton(
+            enableButton: enableNextButton,
+            onPressed: () async {
+              if (enableNextButton) {
+                otpCode.value = null;
+                await FirebaseAuthCubit.get(context).submitOTP(otpCodeValue);
+              }
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  nextButtonListener(context, state) {
+    if (state is OTPSubmitted) {
+      Go(context).to(GetPersonalInfo(
+          userId: state.userUid, phoneNumber: widget.mobilePhone));
+    } else if (state is CubitAuthFailed) {
+      ToastShow.reformatToast(context, state.error);
+    }
+  }
+}
+
+class _DidNotReceiveCodeButton extends StatelessWidget {
+  const _DidNotReceiveCodeButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
