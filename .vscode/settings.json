@@ -1,0 +1,13 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "workbench.colorCustomizations": {
+        
+        // "sideBar.background": "#3C3F41",
+        // "editor.background": "#2B2B2B",
+        // "editorLineNumber.foreground": "#606366",
+        // "editor.selectionBackground": "#214283",
+        "editor.selectionHighlightBackground": "#344134",
+        "editor.selectionHighlightBorder": "#84af84",
+
+    }
+}                                                    

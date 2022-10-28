@@ -1,10 +1,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.uber">
-   <application
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
+
+
+    <queries>
+        <!-- If your app opens https URLs -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
+
+    <application
         android:label="uber"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
+            android:requestLegacyExternalStorage="true"
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
@@ -31,4 +45,6 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
 </manifest>
