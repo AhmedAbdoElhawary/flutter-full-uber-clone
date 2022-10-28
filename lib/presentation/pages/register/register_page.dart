@@ -6,10 +6,10 @@ import 'package:uber/core/functions/toast_show.dart';
 import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/core/resources/strings_manager.dart';
 import 'package:uber/core/resources/styles_manager.dart';
+import 'package:uber/presentation/common_widgets/custom_elevated_button.dart';
+import 'package:uber/presentation/common_widgets/text_field/mobile_phone_text_field.dart';
 import 'package:uber/presentation/cubit/firebaseAuthCubit/firebase_auth_cubit.dart';
 import 'package:uber/presentation/pages/register/code_verification.dart';
-import 'package:uber/presentation/widgets/common/custom_widgets/text_field/mobile_phone_text_field.dart';
-import 'package:uber/presentation/widgets/common/custom_widgets/custom_elevated_button.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -43,8 +43,10 @@ class _RegisterPageState extends State<RegisterPage> {
           Padding(
             padding: REdgeInsets.symmetric(vertical: 10),
             child: MobilePhoneTextField(
+
                 controller: controller, hint: "0100 123 4567"),
           ),
+
           Padding(
             padding: REdgeInsets.symmetric(vertical: 10.0),
             child: CustomElevatedButton(
@@ -57,9 +59,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     await FirebaseAuthCubit.get(context)
                         .submitPhoneNumber(mobilePhone);
                     if (!mounted) return;
-                    pushToPage(context,
-                        page:
-                            CodeVerificationPage(mobilePhone: controller.text));
+                    Go(context)
+                        .to(CodeVerificationPage(mobilePhone: controller.text));
                   }
                 },
                 child: Text(
