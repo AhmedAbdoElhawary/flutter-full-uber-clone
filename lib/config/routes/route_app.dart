@@ -1,23 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 
 /// currently, I don't use routes methods because there is a lot of run time errors.
 /// I use normal Navigator because i don't know how to make Get.to without root.
 
 class Go {
-  final BuildContext context;
-  const Go(this.context);
-  to(Widget page) {
-    PageRoute route =
-    CupertinoPageRoute(builder: (context) => page, maintainState: false);
-    return Navigator.of(context, rootNavigator: true).push(route);
-  }
+  static to(Widget page) => Get.to(page, transition: Transition.rightToLeft);
 
-  toAndRemoveAll(Widget page) {
-    PageRoute route = CupertinoPageRoute(builder: (context) => page);
-    return Navigator.of(context).pushAndRemoveUntil(route, (route) => false);
-  }
+  static offAll(Widget page) => Get.offAll(page, transition: Transition.rightToLeft);
 
-  pop() {
-    return Navigator.of(context).maybePop();
-  }
+  static back() => Get.back();
 }
