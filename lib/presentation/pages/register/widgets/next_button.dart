@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/core/resources/styles_manager.dart';
-import 'package:uber/presentation/pages/register/code_verification.dart';
+import 'package:uber/presentation/pages/register/code_verification/view/code_verification.dart';
 
 class NextButton extends StatelessWidget {
   final bool enableButton;
