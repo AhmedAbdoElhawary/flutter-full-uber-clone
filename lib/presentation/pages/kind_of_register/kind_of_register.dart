@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uber/config/routes/route_app.dart';
 import 'package:uber/core/functions/toast_show.dart';
+import 'package:uber/core/utility/app_prefs.dart';
 import 'package:uber/core/utility/injector.dart';
 import 'package:uber/presentation/cubit/personal_info_cubit/personal_info_cubit_cubit.dart';
 import 'package:uber/presentation/layouts/base_layout.dart';
-import 'package:uber/presentation/pages/complete_user_info.dart';
-import 'package:uber/presentation/pages/register/register_page.dart';
+import 'package:uber/presentation/pages/register/complete_user_info/view/complete_user_info.dart';
+import 'package:uber/presentation/pages/register/register_page/view/register_page.dart';
 import 'package:uber/presentation/common_widgets/custom_circulars_progress.dart';
 
-class GetPersonalInfo extends StatefulWidget {
+class GetPersonalInfo extends StatelessWidget {
   final String userId;
   final String phoneNumber;
 
@@ -18,16 +18,9 @@ class GetPersonalInfo extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<GetPersonalInfo> createState() => _GetPersonalInfoState();
-}
-
-class _GetPersonalInfoState extends State<GetPersonalInfo> {
-  final SharedPreferences _sharePrefs = injector<SharedPreferences>();
-
-  @override
   Widget build(BuildContext context) {
     return BlocListener<PersonalInfoCubitCubit, PersonalInfoCubitState>(
-        bloc: PersonalInfoCubitCubit.get(context)..getUserInfo(widget.userId),
+        bloc: PersonalInfoCubitCubit.get(context)..getUserInfo(userId),
         listenWhen: (previous, current) => previous != current,
         listener: listener,
         child: const Scaffold(body: ThineCircularProgress()));
@@ -37,7 +30,7 @@ class _GetPersonalInfoState extends State<GetPersonalInfo> {
     if (state is PersonalInfoLoaded) {
       registerUserType(state);
     } else if (state is PersonalInfoFailed) {
-      goBackToRegisterPage(state);
+      goBackToRegisterPage(state, context);
     }
   }
 
@@ -46,23 +39,24 @@ class _GetPersonalInfoState extends State<GetPersonalInfo> {
     if (isUserExist) {
       login(state);
     } else {
-      continueTakingUserInfo();
+      phoneNumber.isNotEmpty
+          ? continueTakingUserInfo()
+          : Go.to(const RegisterPage());
     }
   }
 
   continueTakingUserInfo() {
-    Go(context).to(CompleteUserInfoPage(
-        userId: widget.userId, phoneNumber: widget.phoneNumber));
+    Go.to(CompleteUserInfoPage(userId: userId, phoneNumber: phoneNumber));
   }
 
   login(PersonalInfoLoaded state) async {
-    await _sharePrefs.setString("userId", widget.userId);
-    if (!mounted) return;
-    Go(context).toAndRemoveAll(BaseLayout(personalInfo: state.personalInfo!));
+    final AppPreferences sharePrefs = injector<AppPreferences>();
+    await sharePrefs.setUserId(userId);
+    Go.offAll(BaseLayout(personalInfo: state.personalInfo!));
   }
 
-  goBackToRegisterPage(PersonalInfoFailed state) {
+  goBackToRegisterPage(PersonalInfoFailed state, BuildContext context) {
     ToastShow.reformatToast(context, state.error);
-    Go(context).toAndRemoveAll(const RegisterPage());
+    Go.offAll(const RegisterPage());
   }
 }
