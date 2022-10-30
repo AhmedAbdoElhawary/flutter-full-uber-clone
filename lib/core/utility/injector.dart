@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:uber/core/utility/app_prefs.dart';
 import 'package:uber/data/repositories_impl/firebase_auth_repo_impl.dart';
 import 'package:uber/data/repositories_impl/personal_info_repo_impl.dart';
 import 'package:uber/domain/repositories/auth_repository.dart';
@@ -18,8 +19,12 @@ Future<void> initializeDependencies() async {
   // shared prefs instance
   final sharedPrefs = await SharedPreferences.getInstance();
 
+  // shared prefs instance
   injector.registerLazySingleton<SharedPreferences>(() => sharedPrefs);
 
+  // app prefs instance
+  injector
+      .registerLazySingleton<AppPreferences>(() => AppPreferences(injector()));
   /// =============================== Repository =========================================>
 
   // Firebase Auth Repository

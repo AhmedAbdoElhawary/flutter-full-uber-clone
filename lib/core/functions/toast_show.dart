@@ -23,7 +23,7 @@ class ToastShow {
     );
   }
 
-  static toastStateError(BuildContext context,dynamic state) {
+  static reformatToast(BuildContext context,dynamic state) {
     String error;
     try {
       error = state.error.split(RegExp(r"]"))[1];

@@ -43,9 +43,8 @@ class FirebaseAuthentication {
   static Future<String> _signIn(PhoneAuthCredential credential) async {
     UserCredential user = await _firebaseAuth.signInWithCredential(credential);
     String? uid = user.user?.uid;
-    if (uid == null) throw "There is something wrong!";
+    if (uid == null) return "There is something wrong!";
     userUid = uid;
-    print("===================== userUid > $userUid");
     return uid;
   }
 }

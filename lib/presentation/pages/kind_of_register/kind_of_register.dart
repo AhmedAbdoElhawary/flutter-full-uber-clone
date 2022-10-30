@@ -1,16 +1,16 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uber/config/routes/route_app.dart';
 import 'package:uber/core/functions/toast_show.dart';
+import 'package:uber/core/utility/app_prefs.dart';
 import 'package:uber/core/utility/injector.dart';
 import 'package:uber/presentation/cubit/personal_info_cubit/personal_info_cubit_cubit.dart';
 import 'package:uber/presentation/layouts/base_layout.dart';
-import 'package:uber/presentation/pages/complete_user_info.dart';
-import 'package:uber/presentation/pages/register/register_page.dart';
-import 'package:uber/presentation/widgets/common/custom_widgets/custom_circulars_progress.dart';
+import 'package:uber/presentation/pages/register/complete_user_info/view/complete_user_info.dart';
+import 'package:uber/presentation/pages/register/register_page/view/register_page.dart';
+import 'package:uber/presentation/common_widgets/custom_circulars_progress.dart';
 
-class GetPersonalInfo extends StatefulWidget {
+class GetPersonalInfo extends StatelessWidget {
   final String userId;
   final String phoneNumber;
 
@@ -18,44 +18,45 @@ class GetPersonalInfo extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<GetPersonalInfo> createState() => _GetPersonalInfoState();
-}
-
-class _GetPersonalInfoState extends State<GetPersonalInfo> {
-  final SharedPreferences _sharePrefs = injector<SharedPreferences>();
-
-  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PersonalInfoCubitCubit, PersonalInfoCubitState>(
-        bloc: PersonalInfoCubitCubit.get(context)..getUserInfo(widget.userId),
-        buildWhen: (previous, current) => previous != current,
-        builder: (context, state) {
-          if (state is PersonalInfoLoaded) {
-            WidgetsBinding.instance.addPostFrameCallback((_) async {
-              if (state.personalInfo == null) {
-                pushToPage(context,
-                    page: CompleteUserInfoPage(
-                        userId: widget.userId, phoneNumber: widget.phoneNumber));
-              } else {
-                await _sharePrefs.setString("userId", widget.userId);
-                if(!mounted)return;
-                Navigator.of(context).pushAndRemoveUntil(
-                    CupertinoPageRoute(
-                        builder: (context) =>
-                            BaseLayout(personalInfo: state.personalInfo!)),
-                    (route) => false);
-              }
-            });
-          } else if (state is PersonalInfoFailed) {
-            ToastShow.toastStateError(context,state.error);
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              Navigator.of(context).pushAndRemoveUntil(
-                  CupertinoPageRoute(
-                      builder: (context) => const RegisterPage()),
-                  (route) => false);
-            });
-          }
-          return const ThineCircularProgress();
-        });
+    return BlocListener<PersonalInfoCubitCubit, PersonalInfoCubitState>(
+        bloc: PersonalInfoCubitCubit.get(context)..getUserInfo(userId),
+        listenWhen: (previous, current) => previous != current,
+        listener: listener,
+        child: const Scaffold(body: ThineCircularProgress()));
+  }
+
+  Future<void> listener(context, state) async {
+    if (state is PersonalInfoLoaded) {
+      registerUserType(state);
+    } else if (state is PersonalInfoFailed) {
+      goBackToRegisterPage(state, context);
+    }
+  }
+
+  registerUserType(PersonalInfoLoaded state) async {
+    bool isUserExist = state.personalInfo != null;
+    if (isUserExist) {
+      login(state);
+    } else {
+      phoneNumber.isNotEmpty
+          ? continueTakingUserInfo()
+          : Go.to(const RegisterPage());
+    }
+  }
+
+  continueTakingUserInfo() {
+    Go.to(CompleteUserInfoPage(userId: userId, phoneNumber: phoneNumber));
+  }
+
+  login(PersonalInfoLoaded state) async {
+    final AppPreferences sharePrefs = injector<AppPreferences>();
+    await sharePrefs.setUserId(userId);
+    Go.offAll(BaseLayout(personalInfo: state.personalInfo!));
+  }
+
+  goBackToRegisterPage(PersonalInfoFailed state, BuildContext context) {
+    ToastShow.reformatToast(context, state.error);
+    Go.offAll(const RegisterPage());
   }
 }

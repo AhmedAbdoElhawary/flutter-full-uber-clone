@@ -1,31 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:uber/config/routes/route_app.dart';
 import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/core/resources/styles_manager.dart';
+import 'package:uber/presentation/common_widgets/custom_elevated_button.dart';
 import 'package:uber/presentation/cubit/firebaseAuthCubit/firebase_auth_cubit.dart';
-import 'package:uber/presentation/pages/kind_of_register/kind_of_register.dart';
-import 'package:uber/presentation/widgets/belong_to/register/next_button.dart';
-import 'package:uber/presentation/widgets/common/custom_widgets/custom_elevated_button.dart';
+import 'package:uber/presentation/pages/register/code_verification/logic/code_verification_logic.dart';
+import 'package:uber/presentation/pages/register/widgets/next_button.dart';
 
-class CodeVerificationPage extends StatefulWidget {
+class CodeVerificationPage extends StatelessWidget {
   final String mobilePhone;
   const CodeVerificationPage({Key? key, required this.mobilePhone})
       : super(key: key);
 
   @override
-  State<CodeVerificationPage> createState() => _CodeVerificationPageState();
-}
-
-class _CodeVerificationPageState extends State<CodeVerificationPage> {
-  final TextEditingController verificationController = TextEditingController();
-
-  final ValueNotifier<String?> otpCode = ValueNotifier(null);
-
-  @override
   Widget build(BuildContext context) {
+    CodeVerificationLogic controller= Get.put(CodeVerificationLogic(mobilePhone));
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -33,8 +25,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                  "Enter the 4-digit code sent to you at\n${widget.mobilePhone}."),
+              Text("Enter the 4-digit code sent to you at\n$mobilePhone."),
               Container(
                 padding: REdgeInsets.only(top: 35, bottom: 15),
                 constraints: BoxConstraints(maxWidth: 380.w),
@@ -59,19 +50,19 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                   ),
                   animationDuration: const Duration(milliseconds: 300),
                   enableActiveFill: true,
-                  controller: verificationController,
+                  controller: controller.verificationController.value,
                   onCompleted: (v) {
-                    otpCode.value = v;
+                    controller.otpCode.value = v;
                   },
                   onChanged: (value) {
-                    otpCode.value = value;
+                    controller.otpCode.value = value;
                   },
                   beforeTextPaste: (text) {
                     return true;
                   },
                 ),
               ),
-              const DidNotReceiveCodeButton(),
+              const _DidNotReceiveCodeButton(),
               const Spacer(),
               Padding(
                 padding: REdgeInsets.only(bottom: 35.0),
@@ -84,39 +75,7 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
                         },
                         child: Icon(Icons.arrow_back, size: 30.r)),
                     const Spacer(),
-                    ValueListenableBuilder(
-                      valueListenable: otpCode,
-                      builder: (context, String? otpCodeValue, child) {
-                        bool enableNextButton =
-                            otpCodeValue != null && otpCodeValue.length == 6;
-                        return BlocBuilder<FirebaseAuthCubit,
-                            FirebaseAuthCubitState>(
-                          buildWhen: (previous, current) => previous != current,
-                          builder: (context, state) {
-                            if (state is OTPSubmitted) {
-                              WidgetsBinding.instance.addPostFrameCallback((_) {
-                                pushToPage(context,
-                                    page: GetPersonalInfo(
-                                      userId: state.userUid,
-                                      phoneNumber: widget.mobilePhone,
-                                    ));
-                              });
-                            }
-
-                            return NextButton(
-                              enableButton: enableNextButton,
-                              onPressed: () async {
-                                if (enableNextButton) {
-                                  otpCode.value = null;
-                                  await FirebaseAuthCubit.get(context)
-                                      .submitOTP(otpCodeValue);
-                                }
-                              },
-                            );
-                          },
-                        );
-                      },
-                    ),
+                    _BuildNextButton(controller: controller),
                   ],
                 ),
               )
@@ -128,8 +87,28 @@ class _CodeVerificationPageState extends State<CodeVerificationPage> {
   }
 }
 
-class DidNotReceiveCodeButton extends StatelessWidget {
-  const DidNotReceiveCodeButton({Key? key}) : super(key: key);
+class _BuildNextButton extends StatelessWidget {
+  final CodeVerificationLogic controller;
+  const _BuildNextButton({Key? key, required this.controller})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<FirebaseAuthCubit, FirebaseAuthCubitState>(
+      listenWhen: (previous, current) => previous != current,
+      listener: controller.nextButtonListener,
+      child: Obx(
+        () => NextButton(
+          enableButton: controller.enableNextButton,
+          onPressed: () async => controller.onPressedVerify(context),
+        ),
+      ),
+    );
+  }
+}
+
+class _DidNotReceiveCodeButton extends StatelessWidget {
+  const _DidNotReceiveCodeButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
