@@ -22,8 +22,10 @@ migrate_working_dir/
 #.vscode/
 ios/firebase_app_id_file.json
 android/app/google-services.json
+android/app/src/main/AndroidManifest.xml
 ios/Runner/GoogleService-Info.plist
-# *lib/core/utility/private_keys.dart
+*lib/core/utility/private_keys.dart
+
 /lib/firebase_options.dart
 # Flutter/Dart/Pub related
 **/doc/api/
