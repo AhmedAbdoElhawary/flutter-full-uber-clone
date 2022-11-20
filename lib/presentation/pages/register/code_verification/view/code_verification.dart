@@ -100,7 +100,7 @@ class _BuildNextButton extends StatelessWidget {
       child: Obx(
         () => NextButton(
           enableButton: controller.enableNextButton,
-          onPressed: () async => controller.onPressedVerify(context),
+          onPressed: () async => await controller.onPressedVerify(context),
         ),
       ),
     );
