@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:uber/config/routes/route_app.dart';
 import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/core/resources/styles_manager.dart';
+import 'package:uber/presentation/common_widgets/custom_google_map.dart';
+import 'package:uber/presentation/pages/map/logic/map_page_logic.dart';
+import 'package:uber/presentation/pages/map/view/map_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,7 +23,7 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding:  REdgeInsets.symmetric(vertical: 20.0),
+            padding: REdgeInsets.symmetric(vertical: 20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -52,18 +57,11 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding:  REdgeInsets.symmetric(vertical: 25.0),
+                        padding: REdgeInsets.symmetric(vertical: 25.0),
                         child: Text("Around you",
                             style: getMediumStyle(fontSize: horizontalPadding)),
                       ),
-                      Container(
-                        height: 200.h,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: ColorManager.lightPurple,
-                          borderRadius: BorderRadius.circular(15.r),
-                        ),
-                      ),
+                      const SmallMapDisplay(),
                     ],
                   ),
                 ),
@@ -76,7 +74,52 @@ class _HomePageState extends State<HomePage> {
   }
 
   Divider customDivider() =>
-       Divider(color: ColorManager.lightGrey, indent: 65, height: 1.h);
+      Divider(color: ColorManager.lightGrey, indent: 65, height: 1.h);
+}
+
+class SmallMapDisplay extends StatelessWidget {
+  const SmallMapDisplay({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Go.to(const MapScreen());
+      },
+      child: Container(
+        height: 200.h,
+        width: double.infinity,
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r)),
+        child: Stack(
+          children: [
+            ClipRRect(
+                borderRadius: BorderRadius.circular(15.r),
+                child: CustomGoogleMap(
+                  mapControl: Get.put(MapLogic(), tag: '1'),
+                )),
+            const _ContainerForEnableTapOnMap(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ContainerForEnableTapOnMap extends StatelessWidget {
+  const _ContainerForEnableTapOnMap({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 200.h,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: ColorManager.transparent,
+        borderRadius: BorderRadius.circular(15.r),
+      ),
+    );
+  }
 }
 
 class WhereToSearchBar extends StatelessWidget {
@@ -85,9 +128,9 @@ class WhereToSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  REdgeInsets.symmetric(vertical: 20.0),
+      padding: REdgeInsets.symmetric(vertical: 20.0),
       child: Container(
-        padding:  REdgeInsets.symmetric(vertical: 12, horizontal: 15),
+        padding: REdgeInsets.symmetric(vertical: 12, horizontal: 15),
         decoration: BoxDecoration(
           color: ColorManager.veryLightGrey,
           borderRadius: BorderRadius.circular(45.r),
@@ -95,17 +138,18 @@ class WhereToSearchBar extends StatelessWidget {
         width: double.infinity,
         child: Row(
           children: [
-            const Icon(Icons.search_rounded, size: 35),
+            Icon(Icons.search_rounded, size: 35.r),
             const RSizedBox(width: 10),
             Text(
               "Where to?",
               style: getMediumStyle(color: ColorManager.black54, fontSize: 22),
             ),
             const Spacer(flex: 5),
-            Container(color: ColorManager.lightGrey, height: 40.h, width: 0.5.w),
+            Container(
+                color: ColorManager.lightGrey, height: 40.h, width: 0.5.w),
             const Spacer(flex: 1),
             Container(
-                padding:  REdgeInsets.all(8),
+                padding: REdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: ColorManager.white,
                   borderRadius: BorderRadius.circular(25.r),
@@ -160,9 +204,9 @@ class _CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-        contentPadding:  REdgeInsets.all(0),
+        contentPadding: REdgeInsets.all(0),
         leading: Container(
-            padding:  REdgeInsets.all(7),
+            padding: REdgeInsets.all(7),
             decoration: const BoxDecoration(
                 color: ColorManager.veryLightGrey, shape: BoxShape.circle),
             child: Icon(icon, color: ColorManager.black)),
