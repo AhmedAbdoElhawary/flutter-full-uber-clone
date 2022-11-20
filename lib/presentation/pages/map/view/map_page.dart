@@ -106,27 +106,18 @@ class _MyLocationIconState extends State<MyLocationIcon>
         tag: '2',
         builder: (mapController) {
           bool makeIconAppear = mapController.showLocationIcon.value;
-          print("11111111111111111111111");
-          if (makeIconAppear) {
-            print("2222222222222222222222");
-
-            animateLocationIcon(true);
-          }
+          if (makeIconAppear)animateLocationIcon(true);
 
           return ScaleTransition(
             scale: _animation,
             child: GestureDetector(
               onTap: () async {
-                // mapController.changeShowingIcon(false);
-                setState(() {
-                  _controller.animateBack(
-                    0,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.fastOutSlowIn,
-                  );
-                });
+                mapController.changeShowingIcon(false);
+                animateLocationIcon(false);
 
                 await mapController.goToMyCurrentLocation();
+                await Future.delayed(const Duration(seconds: 2));
+                mapController.changeShowingIcon(true);
               },
               child: _ContainerWithBoxShadow(
                 child: SvgPicture.asset(IconsAssets.myLocation, height: 25),
@@ -136,11 +127,15 @@ class _MyLocationIconState extends State<MyLocationIcon>
         });
   }
 
-  animateLocationIcon(bool appear) {
-    if (appear) {
-      _controller.forward();
+  Future<void> animateLocationIcon(bool show) async {
+    if (show) {
+      await _controller.animateBack(
+        1,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.fastOutSlowIn,
+      );
     } else {
-      _controller.animateBack(
+      await _controller.animateBack(
         0,
         duration: const Duration(milliseconds: 500),
         curve: Curves.fastOutSlowIn,
