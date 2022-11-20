@@ -18,7 +18,7 @@ class CustomGoogleMap extends StatelessWidget {
             zoomControlsEnabled: false,
             myLocationButtonEnabled: false,
             onCameraIdle: () async {
-              if (mapControl.showLocationIcon.value) {
+              if (!mapControl.showLocationIcon.value) {
                 mapControl.changeShowingIcon(true);
               }
             },
