@@ -106,18 +106,16 @@ class _MyLocationIconState extends State<MyLocationIcon>
         tag: '2',
         builder: (mapController) {
           bool makeIconAppear = mapController.showLocationIcon.value;
-          if (makeIconAppear)animateLocationIcon(true);
+          if (makeIconAppear) animateLocationIcon(true);
 
           return ScaleTransition(
             scale: _animation,
             child: GestureDetector(
               onTap: () async {
-                mapController.changeShowingIcon(false);
-                animateLocationIcon(false);
-
+                await animateLocationIcon(false);
                 await mapController.goToMyCurrentLocation();
                 await Future.delayed(const Duration(seconds: 2));
-                mapController.changeShowingIcon(true);
+                mapController.changeShowingIcon(false);
               },
               child: _ContainerWithBoxShadow(
                 child: SvgPicture.asset(IconsAssets.myLocation, height: 25),
