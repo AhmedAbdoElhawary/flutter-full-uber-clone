@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:uber/config/routes/route_app.dart';
 import 'package:uber/core/functions/toast_show.dart';
 import 'package:uber/presentation/cubit/firebaseAuthCubit/firebase_auth_cubit.dart';
-import 'package:uber/presentation/pages/kind_of_register/kind_of_register.dart';
+import 'package:uber/presentation/pages/type_of_register/type_of_register.dart';
 
 class CodeVerificationLogic extends GetxController {
   final verificationController = TextEditingController().obs;
