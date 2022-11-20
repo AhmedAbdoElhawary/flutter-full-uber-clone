@@ -6,7 +6,7 @@ import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/core/resources/styles_manager.dart';
 
 class ToastShow {
-  static toast(BuildContext context,String toast) {
+  static toast(BuildContext context, String toast) {
     FToast fToast = FToast();
     fToast.init(context);
 
@@ -23,15 +23,15 @@ class ToastShow {
     );
   }
 
-  static reformatToast(BuildContext context,dynamic state) {
+  static reformatToast(BuildContext context, String state) {
     String error;
     try {
-      error = state.error.split(RegExp(r"]"))[1];
+      error = state.split(RegExp(r"]"))[1];
     } catch (e) {
-      error = state.error;
+      error = state;
     }
     if (kDebugMode) print("=========> $error !!!!!!the error in toast show!!!");
 
-    ToastShow.toast(context,error);
+    ToastShow.toast(context, error);
   }
 }

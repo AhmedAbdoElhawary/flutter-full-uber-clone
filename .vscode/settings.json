@@ -12,8 +12,10 @@
         "firestore",
         "fluttertoast",
         "geolocator",
+        "Getx",
         "Prefs",
         "Schyler",
-        "screenutil"
+        "screenutil",
+        "vsync"
     ]
 }                                                    
