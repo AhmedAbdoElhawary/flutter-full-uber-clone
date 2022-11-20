@@ -7,8 +7,8 @@ import 'package:uber/core/translations/app_lang.dart';
 import 'package:uber/core/translations/translations.dart';
 import 'package:uber/core/utility/constant.dart';
 import 'package:uber/core/widgets/multi_bloc_provider.dart';
-import 'package:uber/presentation/pages/kind_of_register/kind_of_register.dart';
 import 'package:uber/presentation/pages/register/register_page/view/register_page.dart';
+import 'package:uber/presentation/pages/type_of_register/type_of_register.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -30,27 +30,29 @@ class _MyAppState extends State<MyApp> {
 
   ScreenUtilInit materialApp() {
     return ScreenUtilInit(
-        designSize: const Size(360, 690),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (context, child) {
-          return GetBuilder<AppLanguage>(
-              init: AppLanguage(),
-              builder: (controller) {
-                return GetMaterialApp(
-                  title: 'Uber',
-                  theme: AppTheme.light,
-                  translations: Translation(),
-                  locale: Locale(controller.appLang),
-                  fallbackLocale: const Locale('en'),
-                  darkTheme: AppTheme.dark,
-                  themeMode: ThemeOfApp().theme,
-                  debugShowCheckedModeBanner: false,
-                  home: personalId.isNotEmpty
-                      ? GetPersonalInfo(userId: personalId)
-                      :  const RegisterPage(),
-                );
-              });
-        });
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return GetBuilder<AppLanguage>(
+          init: AppLanguage(),
+          builder: (controller) {
+            return GetMaterialApp(
+              title: 'Uber',
+              theme: AppTheme.light,
+              translations: Translation(),
+              locale: Locale(controller.appLang),
+              fallbackLocale: const Locale('en'),
+              darkTheme: AppTheme.dark,
+              themeMode: ThemeOfApp().theme,
+              debugShowCheckedModeBanner: false,
+              home: personalId.isNotEmpty
+                  ? GetPersonalInfo(userId: personalId)
+                  : const RegisterPage(),
+            );
+          },
+        );
+      },
+    );
   }
 }
