@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/core/resources/styles_manager.dart';
-import 'package:uber/presentation/common_widgets/custom_elevated_button.dart';
+import 'package:uber/presentation/common/widgets/custom_elevated_button.dart';
 import 'package:uber/presentation/cubit/firebaseAuthCubit/firebase_auth_cubit.dart';
 import 'package:uber/presentation/pages/register/code_verification/logic/code_verification_logic.dart';
 import 'package:uber/presentation/pages/register/widgets/next_button.dart';

@@ -4,11 +4,11 @@ import 'package:uber/config/routes/route_app.dart';
 import 'package:uber/core/functions/toast_show.dart';
 import 'package:uber/core/utility/app_prefs.dart';
 import 'package:uber/core/utility/injector.dart';
+import 'package:uber/presentation/common/widgets/custom_circulars_progress.dart';
 import 'package:uber/presentation/cubit/personal_info_cubit/personal_info_cubit_cubit.dart';
 import 'package:uber/presentation/layouts/base_layout.dart';
 import 'package:uber/presentation/pages/register/complete_user_info/view/complete_user_info.dart';
 import 'package:uber/presentation/pages/register/register_page/view/register_page.dart';
-import 'package:uber/presentation/common_widgets/custom_circulars_progress.dart';
 
 class GetPersonalInfo extends StatelessWidget {
   final String userId;

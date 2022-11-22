@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:uber/config/routes/route_app.dart';
 import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/core/resources/styles_manager.dart';
-import 'package:uber/presentation/common_widgets/custom_google_map.dart';
-import 'package:uber/presentation/pages/map/logic/map_page_logic.dart';
-import 'package:uber/presentation/pages/map/view/map_page.dart';
-import 'package:uber/presentation/pages/search_destination/view/search_destination_page.dart';
+import 'package:uber/presentation/common/widgets/custom_google_map.dart';
+import 'package:uber/presentation/pages/map/logic/map_logic.dart';
+import 'package:uber/presentation/pages/map/view/initial_map/initial_map_page.dart';
+import 'package:uber/presentation/pages/map/view/search_destination/search_destination_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uber/core/resources/color_manager.dart';
-import 'package:uber/presentation/pages/map/logic/map_page_logic.dart';
+import 'package:uber/presentation/pages/map/logic/map_logic.dart';
 
 class CustomGoogleMap extends StatelessWidget {
   const CustomGoogleMap({required this.mapControl, super.key});

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/core/resources/styles_manager.dart';
-import 'package:uber/presentation/common_widgets/text_field/custom_text_field.dart';
+import 'package:uber/presentation/common/widgets/text_field/custom_text_field.dart';
 
 class MobilePhoneTextField extends StatefulWidget {
   final TextEditingController controller;
