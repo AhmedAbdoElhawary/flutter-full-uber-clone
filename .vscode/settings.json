@@ -8,7 +8,9 @@
     },
     "cmake.sourceDirectory": "${workspaceFolder}/linux",
     "cSpell.words": [
+        "Abdo",
         "Cupertino",
+        "Elhawary",
         "firestore",
         "fluttertoast",
         "geolocator",
