@@ -11,26 +11,28 @@ class CustomGoogleMap extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        if (mapControl.position.value != null) {
-          return GoogleMap(
-            mapType: MapType.normal,
-            myLocationEnabled: true,
-            zoomControlsEnabled: false,
-            myLocationButtonEnabled: false,
-            onCameraIdle: () async {
+        if (mapControl.getCurrentPosition != null) {
+          return Listener(
+            onPointerDown: (PointerDownEvent details) {
               if (!mapControl.showLocationIcon.value) {
                 mapControl.changeShowingIcon(true);
               }
             },
-            initialCameraPosition:
-                mapControl.myCurrentLocationCameraPosition.value,
-            onMapCreated: (GoogleMapController controller) {
-              try {
-                mapControl.mapController.value.complete(controller);
-              } catch (e) {
-                NullThrownError;
-              }
-            },
+            child: GoogleMap(
+              mapType: MapType.normal,
+              myLocationEnabled: true,
+              zoomControlsEnabled: false,
+              myLocationButtonEnabled: false,
+              initialCameraPosition:
+                  mapControl.getMyCurrentLocationCameraPosition,
+              onMapCreated: (GoogleMapController controller) {
+                try {
+                  mapControl.mapController.value.complete(controller);
+                } catch (e) {
+                  NullThrownError;
+                }
+              },
+            ),
           );
         } else {
           return Container(
