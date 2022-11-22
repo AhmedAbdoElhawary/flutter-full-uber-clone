@@ -9,6 +9,7 @@ import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/presentation/common_widgets/custom_circulars_progress.dart';
 import 'package:uber/presentation/common_widgets/custom_google_map.dart';
 import 'package:uber/presentation/pages/map/logic/map_page_logic.dart';
+import 'package:uber/presentation/pages/search_destination/view/search_destination_page.dart';
 
 class MapScreen extends StatelessWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -25,26 +26,98 @@ class MapScreen extends StatelessWidget {
           () => Stack(
             fit: StackFit.expand,
             children: [
-              mapControl.position.value != null
-                  ? CustomGoogleMap(mapControl: mapControl)
+              mapControl.getCurrentPosition != null
+                  ? buildScreen(mapControl)
                   : const Center(
                       child: ThineCircularProgress(color: ColorManager.blue)),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Padding(
-                  padding: REdgeInsets.symmetric(vertical: 35, horizontal: 20),
-                  child: GestureDetector(
-                    onTap: () => Go.back(),
-                    child: const _ContainerWithBoxShadow(
-                      child: Icon(Icons.arrow_back, size: 25),
-                    ),
-                  ),
-                ),
-              ),
+              const BackButton(),
             ],
           ),
         ),
-        floatingActionButton: const MyLocationIcon(),
+      ),
+    );
+  }
+
+  Column buildScreen(MapLogic mapControl) {
+    return Column(
+      children: [
+        Flexible(child: MapDisplay(mapControl: mapControl)),
+        const SearchContainer(),
+      ],
+    );
+  }
+}
+
+class MapDisplay extends StatelessWidget {
+  const MapDisplay({Key? key, required this.mapControl}) : super(key: key);
+
+  final MapLogic mapControl;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        CustomGoogleMap(mapControl: mapControl),
+        const Align(alignment: Alignment.bottomRight, child: MyLocationIcon())
+      ],
+    );
+  }
+}
+
+class SearchContainer extends StatelessWidget {
+  const SearchContainer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 110.h,
+      decoration: BoxDecoration(color: ColorManager.white, boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.2),
+          spreadRadius: 6,
+          blurRadius: 9,
+          offset: const Offset(0, 4),
+        ),
+      ]),
+      width: double.infinity,
+      child: Padding(
+        padding: REdgeInsets.only(left: 15, right: 15, bottom: 60, top: 15),
+        child: GestureDetector(
+          onTap: () {
+            Go.to(SearchDestinationPage());
+          },
+          child: Container(
+            width: double.infinity,
+            height: 20.h,
+            color: ColorManager.veryLowOpacityGrey,
+            child: Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: REdgeInsetsDirectional.only(start: 15),
+                  child: const Text("Search destination"),
+                )),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BackButton extends StatelessWidget {
+  const BackButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Padding(
+        padding: REdgeInsets.symmetric(vertical: 35, horizontal: 15),
+        child: GestureDetector(
+          onTap: () => Go.back(),
+          child: const _ContainerWithBoxShadow(
+            child: Icon(Icons.arrow_back, size: 25),
+          ),
+        ),
       ),
     );
   }
@@ -59,9 +132,9 @@ class _ContainerWithBoxShadow extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
-          color: Colors.grey.withOpacity(0.2),
-          spreadRadius: 3,
-          blurRadius: 4,
+          color: Colors.grey.withOpacity(0.3),
+          spreadRadius: 4,
+          blurRadius: 5,
           offset: Offset.fromDirection(0),
         ),
       ], shape: BoxShape.circle, color: ColorManager.white),
@@ -108,17 +181,20 @@ class _MyLocationIconState extends State<MyLocationIcon>
           bool makeIconAppear = mapController.showLocationIcon.value;
           if (makeIconAppear) animateLocationIcon(true);
 
-          return ScaleTransition(
-            scale: _animation,
-            child: GestureDetector(
-              onTap: () async {
-                await animateLocationIcon(false);
-                await mapController.goToMyCurrentLocation();
-                await Future.delayed(const Duration(seconds: 2));
-                mapController.changeShowingIcon(false);
-              },
-              child: _ContainerWithBoxShadow(
-                child: SvgPicture.asset(IconsAssets.myLocation, height: 25),
+          return Padding(
+            padding: REdgeInsets.symmetric(vertical: 35, horizontal: 15),
+            child: ScaleTransition(
+              scale: _animation,
+              child: GestureDetector(
+                onTap: () async {
+                  await mapController.goToMyCurrentLocation();
+
+                  await animateLocationIcon(false);
+                  mapController.changeShowingIcon(false);
+                },
+                child: _ContainerWithBoxShadow(
+                  child: SvgPicture.asset(IconsAssets.myLocation, height: 25),
+                ),
               ),
             ),
           );
