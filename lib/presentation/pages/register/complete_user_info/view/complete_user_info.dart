@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:uber/core/resources/styles_manager.dart';
-import 'package:uber/presentation/common_widgets/text_field/custom_text_field.dart';
+import 'package:uber/presentation/common/widgets/text_field/custom_text_field.dart';
 import 'package:uber/presentation/cubit/personal_info_cubit/personal_info_cubit_cubit.dart';
 import 'package:uber/presentation/pages/register/code_verification/view/code_verification.dart';
 import 'package:uber/presentation/pages/register/complete_user_info/logic/complete_user_logic.dart';

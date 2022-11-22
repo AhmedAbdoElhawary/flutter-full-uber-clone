@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/core/resources/strings_manager.dart';
 import 'package:uber/core/resources/styles_manager.dart';
-import 'package:uber/presentation/common_widgets/custom_elevated_button.dart';
-import 'package:uber/presentation/common_widgets/text_field/mobile_phone_text_field.dart';
+import 'package:uber/presentation/common/widgets/custom_elevated_button.dart';
+import 'package:uber/presentation/common/widgets/text_field/mobile_phone_text_field.dart';
 import 'package:uber/presentation/pages/register/register_page/logic/register_page_logic.dart';
 
 class RegisterPage extends StatelessWidget {
