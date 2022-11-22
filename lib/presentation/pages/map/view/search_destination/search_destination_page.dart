@@ -8,6 +8,7 @@ import 'package:uber/presentation/common/widgets/custom_circulars_progress.dart'
 import 'package:uber/presentation/common/widgets/custom_elevated_button.dart';
 import 'package:uber/presentation/common/widgets/custom_google_map.dart';
 import 'package:uber/presentation/pages/map/logic/map_logic.dart';
+import 'package:uber/presentation/pages/map/logic/search_destination/search_destination_logic.dart';
 import 'package:uber/presentation/pages/map/widgets/map_widgets/location_icon.dart';
 import 'package:uber/presentation/pages/map/widgets/search_text_field.dart';
 
@@ -82,51 +83,52 @@ class SearchDestination extends StatefulWidget {
 }
 
 class _SearchDestinationState extends State<SearchDestination> {
-  bool _disAppear = false;
-  double positionInTop = 130.h;
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        if (!_disAppear)
-          Positioned.fill(
-            top: positionInTop,
-            child: Listener(
-              onPointerUp: (details) {
-                setState(() => _disAppear = true);
-              },
-              onPointerMove: (details) {
-                double y = details.position.dy;
-                setState(() {
-                  double temp = y > 130.h ? y : positionInTop;
-                  positionInTop = temp;
-                });
-              },
-              child: Container(
-                color: ColorManager.white,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      GestureDetector(
-                          onTap: () {},
-                          child: const _CustomListTitle(
-                              text: "Saved Places", icon: Icons.star)),
-                      const Divider(color: ColorManager.lightGrey, height: 1),
-                      GestureDetector(
-                        onTap: () {},
-                        child: const _CustomListTitle(
-                            text: "Set location on map",
-                            icon: Icons.location_on),
+    return GetBuilder<SearchDestinationLogic>(
+      id: "pointer",
+      initState: (state) {
+        Get.put(SearchDestinationLogic(), tag: "1");
+      },
+      tag: "1",
+      builder: (controller) {
+        return Stack(
+          children: [
+            if (!controller.getDisAppear)
+              Positioned.fill(
+                top: controller.getPositionInTop,
+                child: Listener(
+                  onPointerUp: (d)=>controller.onListPointerUp(d, context),
+                  onPointerMove: controller.onListPointerMove,
+                  child: Container(
+                    color: ColorManager.white,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          GestureDetector(
+                              onTap: () {},
+                              child: const _CustomListTitle(
+                                  text: "Saved Places", icon: Icons.star)),
+                          const Divider(
+                              color: ColorManager.lightGrey, height: 1),
+                          GestureDetector(
+                            onTap: () {},
+                            child: const _CustomListTitle(
+                                text: "Set location on map",
+                                icon: Icons.location_on),
+                          ),
+                          const Divider(
+                              color: ColorManager.lightGrey, height: 1),
+                        ],
                       ),
-                      const Divider(color: ColorManager.lightGrey, height: 1),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-        Align(alignment: Alignment.topCenter, child: SearchBars()),
-      ],
+            Align(alignment: Alignment.topCenter, child: SearchBars()),
+          ],
+        );
+      },
     );
   }
 }
@@ -136,7 +138,7 @@ class SearchBars extends StatelessWidget {
 
   final TextEditingController fromController = TextEditingController();
   final TextEditingController toController = TextEditingController();
-
+  final SearchDestinationLogic controller = Get.find(tag: "1");
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -183,11 +185,21 @@ class SearchBars extends StatelessWidget {
                     padding: REdgeInsetsDirectional.only(end: 15),
                     child: Column(
                       children: [
-                        SearchTextField(
-                            controller: fromController, hint: "Where from?"),
+                        Listener(
+                          onPointerDown: (d) {
+                            controller.changeTheAppearing(false);
+                          },
+                          child: SearchTextField(
+                              controller: fromController, hint: "Where from?"),
+                        ),
                         const RSizedBox(height: 10),
-                        SearchTextField(
-                            controller: toController, hint: "Where to?"),
+                        Listener(
+                          onPointerDown: (d) {
+                            controller.changeTheAppearing(false);
+                          },
+                          child: SearchTextField(
+                              controller: toController, hint: "Where to?"),
+                        ),
                       ],
                     ),
                   ),
