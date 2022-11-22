@@ -7,6 +7,7 @@ import 'package:uber/core/resources/styles_manager.dart';
 import 'package:uber/presentation/common_widgets/custom_google_map.dart';
 import 'package:uber/presentation/pages/map/logic/map_page_logic.dart';
 import 'package:uber/presentation/pages/map/view/map_page.dart';
+import 'package:uber/presentation/pages/search_destination/view/search_destination_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -129,42 +130,48 @@ class WhereToSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: REdgeInsets.symmetric(vertical: 20.0),
-      child: Container(
-        padding: REdgeInsets.symmetric(vertical: 12, horizontal: 15),
-        decoration: BoxDecoration(
-          color: ColorManager.veryLightGrey,
-          borderRadius: BorderRadius.circular(45.r),
-        ),
-        width: double.infinity,
-        child: Row(
-          children: [
-            Icon(Icons.search_rounded, size: 35.r),
-            const RSizedBox(width: 10),
-            Text(
-              "Where to?",
-              style: getMediumStyle(color: ColorManager.black54, fontSize: 22),
-            ),
-            const Spacer(flex: 5),
-            Container(
-                color: ColorManager.lightGrey, height: 40.h, width: 0.5.w),
-            const Spacer(flex: 1),
-            Container(
-                padding: REdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: ColorManager.white,
-                  borderRadius: BorderRadius.circular(25.r),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(Icons.watch_later_rounded),
-                    const RSizedBox(width: 5),
-                    Text("Now", style: getMediumStyle()),
-                    const RSizedBox(width: 5),
-                    const Icon(Icons.keyboard_arrow_down),
-                    const RSizedBox(width: 10),
-                  ],
-                )),
-          ],
+      child: GestureDetector(
+        onTap: () {
+          Go.to(SearchDestinationPage());
+        },
+        child: Container(
+          padding: REdgeInsets.symmetric(vertical: 12, horizontal: 15),
+          decoration: BoxDecoration(
+            color: ColorManager.veryLightGrey,
+            borderRadius: BorderRadius.circular(45.r),
+          ),
+          width: double.infinity,
+          child: Row(
+            children: [
+              Icon(Icons.search_rounded, size: 35.r),
+              const RSizedBox(width: 10),
+              Text(
+                "Where to?",
+                style:
+                    getMediumStyle(color: ColorManager.black54, fontSize: 22),
+              ),
+              const Spacer(flex: 5),
+              Container(
+                  color: ColorManager.lightGrey, height: 40.h, width: 0.5.w),
+              const Spacer(flex: 1),
+              Container(
+                  padding: REdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: ColorManager.white,
+                    borderRadius: BorderRadius.circular(25.r),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.watch_later_rounded),
+                      const RSizedBox(width: 5),
+                      Text("Now", style: getMediumStyle()),
+                      const RSizedBox(width: 5),
+                      const Icon(Icons.keyboard_arrow_down),
+                      const RSizedBox(width: 10),
+                    ],
+                  )),
+            ],
+          ),
         ),
       ),
     );
