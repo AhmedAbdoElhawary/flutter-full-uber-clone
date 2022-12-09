@@ -62,7 +62,7 @@ class MapDisplay extends StatelessWidget {
             alignment: Alignment.bottomRight,
             child: Padding(
               padding: REdgeInsets.symmetric(vertical: 35, horizontal: 15),
-              child: const MyLocationIcon(),
+              child: const MyLocationIcon(tag: "2"),
             ))
       ],
     );
@@ -119,8 +119,8 @@ class _BackButton extends StatelessWidget {
         padding: REdgeInsets.symmetric(vertical: 35, horizontal: 15),
         child: GestureDetector(
           onTap: () => Go.back(),
-          child: const CircleWithBoxShadow(
-            child: Icon(Icons.arrow_back, size: 25),
+          child:  CircleWithBoxShadow(
+            child: Icon(Icons.arrow_back, size: 25.r),
           ),
         ),
       ),

@@ -6,7 +6,8 @@ import 'package:uber/presentation/pages/map/logic/map_logic.dart';
 import 'package:uber/presentation/pages/map/widgets/map_widgets/circle_with_box_shadow.dart';
 
 class MyLocationIcon extends StatefulWidget {
-  const MyLocationIcon({super.key});
+  final String tag;
+  const MyLocationIcon({required this.tag, super.key});
 
   @override
   State<MyLocationIcon> createState() => _MyLocationIconState();
@@ -37,7 +38,7 @@ class _MyLocationIconState extends State<MyLocationIcon>
   Widget build(BuildContext context) {
     return GetBuilder<MapLogic>(
         id: "2",
-        tag: '2',
+        tag: widget.tag,
         builder: (mapController) {
           bool makeIconAppear = mapController.showLocationIcon.value;
           if (makeIconAppear) animateLocationIcon(true);

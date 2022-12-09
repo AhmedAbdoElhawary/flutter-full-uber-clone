@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:uber/config/themes/app_theme.dart';
@@ -37,18 +38,23 @@ class _MyAppState extends State<MyApp> {
         return GetBuilder<AppLanguage>(
           init: AppLanguage(),
           builder: (controller) {
-            return GetMaterialApp(
-              title: 'Uber',
-              theme: AppTheme.light,
-              translations: Translation(),
-              locale: Locale(controller.appLang),
-              fallbackLocale: const Locale('en'),
-              darkTheme: AppTheme.dark,
-              themeMode: ThemeOfApp().theme,
-              debugShowCheckedModeBanner: false,
-              home: personalId.isNotEmpty
-                  ? GetPersonalInfo(userId: personalId)
-                  : const RegisterPage(),
+            return AnnotatedRegion<SystemUiOverlayStyle>(
+              value: const SystemUiOverlayStyle(
+                  statusBarColor: Colors.white,
+                  statusBarIconBrightness: Brightness.dark),
+              child: GetMaterialApp(
+                title: 'Uber',
+                theme: AppTheme.light,
+                translations: Translation(),
+                locale: Locale(controller.appLang),
+                fallbackLocale: const Locale('en'),
+                darkTheme: AppTheme.dark,
+                themeMode: ThemeOfApp().theme,
+                debugShowCheckedModeBanner: false,
+                home: personalId.isNotEmpty
+                    ? GetPersonalInfo(userId: personalId)
+                    : const RegisterPage(),
+              ),
             );
           },
         );
