@@ -1,0 +1,66 @@
+Date : 2022-11-23 19:34:28
+Directory : d:\uber\flutter-clean-architecture-uber\lib\presentation\pages
+Total : 19 files,  1558 codes, 3 comments, 153 blanks, all 1714 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Dart     |         19 |      1,558 |          3 |        153 |      1,714 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                         | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                            |         19 |      1,558 |          3 |        153 |      1,714 |
+| account                                                                                                                      |          1 |         19 |          0 |          5 |         24 |
+| activity                                                                                                                     |          1 |         33 |          0 |          4 |         37 |
+| home                                                                                                                         |          1 |        207 |          0 |         17 |        224 |
+| map                                                                                                                          |          7 |        554 |          1 |         55 |        610 |
+| map\logic                                                                                                                    |          2 |         68 |          0 |         14 |         82 |
+| map\logic\search_destination                                                                                                 |          1 |         25 |          0 |          4 |         29 |
+| map\view                                                                                                                     |          2 |        364 |          1 |         24 |        389 |
+| map\view\initial_map                                                                                                         |          1 |        119 |          0 |         11 |        130 |
+| map\view\search_destination                                                                                                  |          1 |        245 |          1 |         13 |        259 |
+| map\widgets                                                                                                                  |          3 |        122 |          0 |         17 |        139 |
+| map\widgets\map_widgets                                                                                                      |          2 |         91 |          0 |         14 |        105 |
+| register                                                                                                                     |          8 |        691 |          2 |         63 |        756 |
+| register\code_verification                                                                                                   |          2 |        213 |          0 |         15 |        228 |
+| register\code_verification\logic                                                                                             |          1 |         27 |          0 |          4 |         31 |
+| register\code_verification\view                                                                                              |          1 |        186 |          0 |         11 |        197 |
+| register\complete_user_info                                                                                                  |          2 |        163 |          2 |         23 |        188 |
+| register\complete_user_info\logic                                                                                            |          1 |         77 |          2 |         18 |         97 |
+| register\complete_user_info\view                                                                                             |          1 |         86 |          0 |          5 |         91 |
+| register\register_page                                                                                                       |          2 |        186 |          0 |         15 |        201 |
+| register\register_page\logic                                                                                                 |          1 |         18 |          0 |          3 |         21 |
+| register\register_page\view                                                                                                  |          1 |        168 |          0 |         12 |        180 |
+| register\widgets                                                                                                             |          2 |        129 |          0 |         10 |        139 |
+| type_of_register                                                                                                             |          1 |         54 |          0 |          9 |         63 |
++------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                                     | language | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\account\account_page.dart                                     | Dart     |         19 |          0 |          5 |         24 |
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\activity\activity_page.dart                                   | Dart     |         33 |          0 |          4 |         37 |
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\home\home_page.dart                                           | Dart     |        207 |          0 |         17 |        224 |
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\map\logic\map_logic.dart                                      | Dart     |         43 |          0 |         10 |         53 |
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\map\logic\search_destination\search_destination_logic.dart    | Dart     |         25 |          0 |          4 |         29 |
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\map\view\initial_map\initial_map_page.dart                    | Dart     |        119 |          0 |         11 |        130 |
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\map\view\search_destination\search_destination_page.dart      | Dart     |        245 |          1 |         13 |        259 |
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\map\widgets\map_widgets\circle_with_box_shadow.dart           | Dart     |         22 |          0 |          4 |         26 |
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\map\widgets\map_widgets\location_icon.dart                    | Dart     |         69 |          0 |         10 |         79 |
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\map\widgets\search_text_field.dart                            | Dart     |         31 |          0 |          3 |         34 |
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\register\code_verification\logic\code_verification_logic.dart | Dart     |         27 |          0 |          4 |         31 |
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\register\code_verification\view\code_verification.dart        | Dart     |        186 |          0 |         11 |        197 |
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\register\complete_user_info\logic\complete_user_logic.dart    | Dart     |         77 |          2 |         18 |         97 |
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\register\complete_user_info\view\complete_user_info.dart      | Dart     |         86 |          0 |          5 |         91 |
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\register\register_page\logic\register_page_logic.dart         | Dart     |         18 |          0 |          3 |         21 |
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\register\register_page\view\register_page.dart                | Dart     |        168 |          0 |         12 |        180 |
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\register\widgets\custom_register_button.dart                  | Dart     |         78 |          0 |          7 |         85 |
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\register\widgets\next_button.dart                             | Dart     |         51 |          0 |          3 |         54 |
+| d:\uber\flutter-clean-architecture-uber\lib\presentation\pages\type_of_register\type_of_register.dart                        | Dart     |         54 |          0 |          9 |         63 |
+| Total                                                                                                                        |          |      1,558 |          3 |        153 |      1,714 |
++------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
