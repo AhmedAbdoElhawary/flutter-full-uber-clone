@@ -17,7 +17,8 @@ class SearchDestinationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MapLogic mapControl = Get.put(MapLogic(), tag: '2');
+    /// ------------------------------------------here----->
+    MapLogic mapControl = Get.put(MapLogic(), tag: "3");
     return Scaffold(
       body: SafeArea(
         child: Obx(
@@ -52,7 +53,7 @@ class MapDisplay extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 const Align(
-                    alignment: Alignment.centerRight, child: MyLocationIcon()),
+                    alignment: Alignment.centerRight, child: MyLocationIcon(tag: "3")),
                 const RSizedBox(height: 20),
                 CustomElevatedButton(
                   onPressed: () {},
@@ -233,7 +234,7 @@ class _CustomListTitle extends StatelessWidget {
   const _CustomListTitle({
     Key? key,
     required this.icon,
-    required this.text,
+    required this.text
   }) : super(key: key);
 
   @override

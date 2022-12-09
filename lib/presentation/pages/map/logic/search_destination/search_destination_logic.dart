@@ -13,19 +13,16 @@ class SearchDestinationLogic extends GetxController {
   }
 
   void onListPointerUp(PointerUpEvent details, BuildContext context) {
+    _positionInTop.value = 130.h;
     changeTheAppearing(true);
     FocusScopeNode currentFocus = FocusScope.of(context);
-
-    if (!currentFocus.hasPrimaryFocus) {
-      currentFocus.unfocus();
-    }
+    if (!currentFocus.hasPrimaryFocus) currentFocus.unfocus();
   }
 
   bool get getDisAppear => _disAppear.value;
   double get getPositionInTop => _positionInTop.value;
   void changeTheAppearing(bool value) {
     _disAppear.value = value;
-    if (value) _positionInTop.value = 130.h;
     update(["pointer"]);
   }
 }

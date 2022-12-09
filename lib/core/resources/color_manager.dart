@@ -10,6 +10,7 @@ class ColorManager {
 
   static const Color lowOpacityGrey = Color(0x2A3E3E2F);
   static const Color veryLowOpacityGrey = Color(0x16444439);
+  static const Color veryLowOpacityGrey2 = Color.fromARGB(20, 119, 119, 109);
 
   static const Color black = Color(0xff000000);
   static const Color black87 = Color(0xdd000000);
@@ -20,7 +21,6 @@ class ColorManager {
 
   static const Color lightBlack = Color(0x19242424);
   static const Color darkGray = Color(0xff282828);
-
 
   static const Color black45 = Colors.black45;
   static const Color black38 = Colors.black38;
