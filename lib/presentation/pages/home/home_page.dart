@@ -132,7 +132,7 @@ class WhereToSearchBar extends StatelessWidget {
       padding: REdgeInsets.symmetric(vertical: 20.0),
       child: GestureDetector(
         onTap: () {
-          Go.to(SearchDestinationPage());
+          Go.to(const SearchDestinationPage());
         },
         child: Container(
           padding: REdgeInsets.symmetric(vertical: 12, horizontal: 15),
