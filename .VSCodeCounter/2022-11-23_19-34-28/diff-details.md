@@ -57,8 +57,8 @@ Total : 114 files,  -3107 codes, -417 comments, -592 blanks, all -4116 lines
 | [lib/core/utility/constant.dart](/lib/core/utility/constant.dart) | Dart | -1 | 0 | 0 | -1 |
 | [lib/core/utility/injector.dart](/lib/core/utility/injector.dart) | Dart | -43 | -14 | -15 | -72 |
 | [lib/core/widgets/multi_bloc_provider.dart](/lib/core/widgets/multi_bloc_provider.dart) | Dart | -20 | 0 | -4 | -24 |
-| [lib/data/data_sources/firebase_auth.dart](/lib/data/data_sources/firebase_auth.dart) | Dart | -40 | 0 | -11 | -51 |
-| [lib/data/data_sources/firebase_user_info.dart](/lib/data/data_sources/firebase_user_info.dart) | Dart | -21 | 0 | -5 | -26 |
+| [lib/data/data_sources/firebase_auth.dart](/lib/data/data_sources/remote/firebase/firebase_auth.dart) | Dart | -40 | 0 | -11 | -51 |
+| [lib/data/data_sources/firebase_user_info.dart](/lib/data/data_sources/remote/firebase/firebase_user_info.dart) | Dart | -21 | 0 | -5 | -26 |
 | [lib/data/models/personal_info.dart](/lib/data/models/personal_info.dart) | Dart | -30 | 0 | -3 | -33 |
 | [lib/data/repositories_impl/firebase_auth_repo_impl.dart](/lib/data/repositories_impl/firebase_auth_repo_impl.dart) | Dart | -28 | 0 | -4 | -32 |
 | [lib/data/repositories_impl/personal_info_repo_impl.dart](/lib/data/repositories_impl/personal_info_repo_impl.dart) | Dart | -21 | 0 | -3 | -24 |
