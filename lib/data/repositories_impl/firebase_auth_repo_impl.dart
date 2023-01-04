@@ -1,4 +1,4 @@
-import 'package:uber/data/data_sources/firebase_auth.dart';
+import 'package:uber/data/data_sources/remote/firebase/firebase_auth.dart';
 import 'package:uber/domain/repositories/auth_repository.dart';
 
 class FirebaseAuthRepositoryImpl implements FirebaseAuthRepository {
