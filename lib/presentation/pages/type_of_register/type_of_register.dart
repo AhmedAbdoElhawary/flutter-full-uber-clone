@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uber/config/routes/route_app.dart';
 import 'package:uber/core/functions/toast_show.dart';
 import 'package:uber/core/utility/app_prefs.dart';
+import 'package:uber/core/utility/constant.dart';
 import 'package:uber/core/utility/injector.dart';
 import 'package:uber/presentation/common/widgets/custom_circulars_progress.dart';
 import 'package:uber/presentation/cubit/personal_info_cubit/personal_info_cubit_cubit.dart';
@@ -19,6 +20,8 @@ class GetPersonalInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    sizeOfScreen = MediaQuery.of(context).size;
+
     return BlocListener<PersonalInfoCubitCubit, PersonalInfoCubitState>(
         bloc: PersonalInfoCubitCubit.get(context)..getUserInfo(userId),
         listenWhen: (previous, current) => previous != current,
