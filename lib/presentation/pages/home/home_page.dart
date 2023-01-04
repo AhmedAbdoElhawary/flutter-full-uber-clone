@@ -9,6 +9,8 @@ import 'package:uber/presentation/pages/map/logic/map_logic.dart';
 import 'package:uber/presentation/pages/map/view/initial_map/initial_map_page.dart';
 import 'package:uber/presentation/pages/map/view/search_destination/search_destination_page.dart';
 
+const double _the20padding = 20;
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -17,7 +19,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final double horizontalPadding = 20;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +30,7 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: REdgeInsets.symmetric(horizontal: horizontalPadding),
+                  padding: REdgeInsets.symmetric(horizontal: _the20padding),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -46,61 +47,13 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
-                customDivider(),
-                Padding(
-                  padding: REdgeInsets.symmetric(horizontal: horizontalPadding),
-                  child: const SetDestinationOnMap(),
-                ),
-                customDivider(),
-                Padding(
-                  padding: REdgeInsets.symmetric(horizontal: horizontalPadding),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: REdgeInsets.symmetric(vertical: 25.0),
-                        child: Text("Around you",
-                            style: getMediumStyle(fontSize: horizontalPadding)),
-                      ),
-                      const SmallMapDisplay(),
-                    ],
-                  ),
-                ),
+                const _CustomDivider(),
+                const SetDestinationOnMap(),
+                const _CustomDivider(),
+                const _AroundYou(),
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Divider customDivider() =>
-      Divider(color: ColorManager.lightGrey, indent: 65, height: 1.h);
-}
-
-class SmallMapDisplay extends StatelessWidget {
-  const SmallMapDisplay({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Go.to(const MapScreen());
-      },
-      child: Container(
-        height: 200.h,
-        width: double.infinity,
-        clipBehavior: Clip.hardEdge,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r)),
-        child: Stack(
-          children: [
-            ClipRRect(
-                borderRadius: BorderRadius.circular(15.r),
-                child: CustomGoogleMap(
-                  mapControl: Get.put(MapLogic(), tag: '1'),
-                )),
-            const _ContainerForEnableTapOnMap(),
-          ],
         ),
       ),
     );
@@ -195,10 +148,13 @@ class SetDestinationOnMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-        child: const _CustomButton(
-            icon: Icons.location_on, text: "Set destination on map"),
-        onPressed: () {});
+    return Padding(
+      padding: REdgeInsets.symmetric(horizontal: _the20padding),
+      child: TextButton(
+          child: const _CustomButton(
+              icon: Icons.location_on, text: "Set destination on map"),
+          onPressed: () {}),
+    );
   }
 }
 
@@ -219,5 +175,65 @@ class _CustomButton extends StatelessWidget {
             child: Icon(icon, color: ColorManager.black)),
         title: Text(text, style: getMediumStyle(fontSize: 20)),
         trailing: const Icon(Icons.keyboard_arrow_right_rounded));
+  }
+}
+
+class _AroundYou extends StatelessWidget {
+  const _AroundYou({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: REdgeInsets.symmetric(horizontal: _the20padding),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: REdgeInsets.symmetric(vertical: 25.0),
+            child: Text("Around you",
+                style: getMediumStyle(fontSize: _the20padding)),
+          ),
+          const SmallMapDisplay(),
+        ],
+      ),
+    );
+  }
+}
+
+class SmallMapDisplay extends StatelessWidget {
+  const SmallMapDisplay({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Go.to(const MapScreen());
+      },
+      child: Container(
+        height: 200.h,
+        width: double.infinity,
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r)),
+        child: Stack(
+          children: [
+            ClipRRect(
+                borderRadius: BorderRadius.circular(15.r),
+                child: CustomGoogleMap(
+                  mapControl: Get.put(MapLogic(), tag: '1'),
+                )),
+            const _ContainerForEnableTapOnMap(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CustomDivider extends StatelessWidget {
+  const _CustomDivider({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Divider(color: ColorManager.lightGrey, indent: 65, height: 1.h);
   }
 }
