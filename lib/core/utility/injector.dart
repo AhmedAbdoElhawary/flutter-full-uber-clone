@@ -10,8 +10,8 @@ import 'package:uber/domain/repositories/google_map_apis_repo.dart';
 import 'package:uber/domain/repositories/personal_info_repository.dart';
 import 'package:uber/presentation/cubit/firebaseAuthCubit/firebase_auth_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uber/presentation/cubit/google_map_cubit/places_suggestions_cubit.dart';
 import 'package:uber/presentation/cubit/personal_info_cubit/personal_info_cubit_cubit.dart';
-import 'package:uber/presentation/cubit/places_suggestion/places_suggestions_cubit.dart';
 
 final injector = GetIt.I;
 
@@ -64,8 +64,8 @@ Future<void> initializeDependencies() async {
   // *
 
   // Places suggestions cubit
-  injector.registerFactory<PlacesSuggestionsCubit>(
-    () => PlacesSuggestionsCubit(injector()),
+  injector.registerFactory<GoogleMapCubit>(
+    () => GoogleMapCubit(injector()),
   );
   // *
 }
