@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uber/core/utility/injector.dart';
 import 'package:uber/presentation/cubit/firebaseAuthCubit/firebase_auth_cubit.dart';
+import 'package:uber/presentation/cubit/google_map_cubit/places_suggestions_cubit.dart';
 import 'package:uber/presentation/cubit/personal_info_cubit/personal_info_cubit_cubit.dart';
 
 class MultiBlocs extends StatelessWidget {
@@ -17,6 +18,9 @@ class MultiBlocs extends StatelessWidget {
       ),
       BlocProvider<PersonalInfoCubitCubit>(
         create: (context) => injector<PersonalInfoCubitCubit>(),
+      ),
+      BlocProvider<GoogleMapCubit>(
+        create: (context) => injector<GoogleMapCubit>(),
       ),
     ], child: materialApp);
   }
