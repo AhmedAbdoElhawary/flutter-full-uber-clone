@@ -1,17 +1,17 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uber/core/utility/app_prefs.dart';
+import 'package:uber/data/data_sources/remote/api/google_map_apis.dart';
 import 'package:uber/data/repositories_impl/firebase_auth_repo_impl.dart';
+import 'package:uber/data/repositories_impl/google_map_apis_repo_impl.dart';
 import 'package:uber/data/repositories_impl/personal_info_repo_impl.dart';
 import 'package:uber/domain/repositories/auth_repository.dart';
+import 'package:uber/domain/repositories/google_map_apis_repo.dart';
 import 'package:uber/domain/repositories/personal_info_repository.dart';
-import 'package:uber/domain/use_cases/auth/log_out.dart';
-import 'package:uber/domain/use_cases/auth/submit_otp.dart';
-import 'package:uber/domain/use_cases/auth/submit_phone_umber.dart';
-import 'package:uber/domain/use_cases/personal_info/create_new_user.dart';
-import 'package:uber/domain/use_cases/personal_info/get_user_info.dart';
 import 'package:uber/presentation/cubit/firebaseAuthCubit/firebase_auth_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uber/presentation/cubit/personal_info_cubit/personal_info_cubit_cubit.dart';
+import 'package:uber/presentation/cubit/places_suggestion/places_suggestions_cubit.dart';
 
 final injector = GetIt.I;
 
@@ -25,6 +25,12 @@ Future<void> initializeDependencies() async {
   // app prefs instance
   injector
       .registerLazySingleton<AppPreferences>(() => AppPreferences(injector()));
+
+  /// =============================== Data source =========================================>
+
+  injector.registerLazySingleton<GoogleMapAPIs>(
+      () => GoogleMapAPIs(createAndSetupDio()));
+
   /// =============================== Repository =========================================>
 
   // Firebase Auth Repository
@@ -35,37 +41,50 @@ Future<void> initializeDependencies() async {
 
   // personal info Repository
   injector.registerLazySingleton<PersonalInfoRepository>(
-        () => PersonalInfoRepoImpl(),
+    () => PersonalInfoRepoImpl(),
   );
   // *
-  /// =============================== useCases =========================================>
 
-  // Firebase auth useCases
-  injector.registerLazySingleton<VerifyMobilePhoneUseCase>(
-      () => VerifyMobilePhoneUseCase(injector()));
-  injector
-      .registerLazySingleton<LogOutUseCase>(() => LogOutUseCase(injector()));
-
-  injector.registerLazySingleton<SubmitOtpPhoneUseCase>(
-      () => SubmitOtpPhoneUseCase(injector()));
-
-  // personal info useCases
-  injector.registerLazySingleton<GetUserInfoUseCase>(
-          () => GetUserInfoUseCase(injector()));
-
-  injector.registerLazySingleton<CreateUserUseCase>(
-          () => CreateUserUseCase(injector()));
-
+  // personal info Repository
+  injector.registerLazySingleton<GoogleMapAPIsRepo>(
+    () => GoogleMapAPIsRepoImpl(injector()),
+  );
+  // *
   /// ================================ Blocs ========================================>
 
-  // auth Blocs
+  // auth cubit
   injector.registerFactory<FirebaseAuthCubit>(
-    () => FirebaseAuthCubit(injector(), injector(), injector()),
+    () => FirebaseAuthCubit(injector()),
   );
 
-  // personal info Blocs
+  // personal info cubit
   injector.registerFactory<PersonalInfoCubitCubit>(
-        () => PersonalInfoCubitCubit( injector(), injector()),
+    () => PersonalInfoCubitCubit(injector()),
   );
   // *
+
+  // Places suggestions cubit
+  injector.registerFactory<PlacesSuggestionsCubit>(
+    () => PlacesSuggestionsCubit(injector()),
+  );
+  // *
+}
+
+Dio createAndSetupDio() {
+  Dio dio = Dio();
+
+  dio
+    ..options.connectTimeout = 200 * 1000
+    ..options.receiveTimeout = 200 * 1000;
+
+  dio.interceptors.add(LogInterceptor(
+    responseBody: true,
+    error: true,
+    requestHeader: false,
+    responseHeader: false,
+    request: true,
+    requestBody: true,
+  ));
+
+  return dio;
 }

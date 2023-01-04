@@ -1,4 +1,4 @@
-import 'package:uber/data/data_sources/firebase_user_info.dart';
+import 'package:uber/data/data_sources/remote/firebase/firebase_user_info.dart';
 import 'package:uber/data/models/personal_info.dart';
 import 'package:uber/domain/repositories/personal_info_repository.dart';
 
