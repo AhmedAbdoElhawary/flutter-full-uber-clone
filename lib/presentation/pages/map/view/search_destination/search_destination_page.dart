@@ -7,12 +7,12 @@ import 'package:uber/core/functions/network_exceptions.dart';
 import 'package:uber/core/functions/toast_show.dart';
 import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/core/resources/styles_manager.dart';
-import 'package:uber/data/models/place_info/place_info.dart';
+import 'package:uber/data/models/place_suggestion/places_suggestions.dart';
 import 'package:uber/presentation/common/widgets/custom_circulars_progress.dart';
 import 'package:uber/presentation/common/widgets/custom_elevated_button.dart';
 import 'package:uber/presentation/common/widgets/custom_google_map.dart';
 import 'package:uber/presentation/cubit/google_map_cubit/places_suggestions_cubit.dart';
-import 'package:uber/presentation/cubit/result_state.dart';
+import 'package:uber/presentation/cubit/google_map_cubit/result_state.dart';
 import 'package:uber/presentation/pages/map/logic/map_logic.dart';
 import 'package:uber/presentation/pages/map/logic/search_destination/appearance_of_search_list_logic.dart';
 import 'package:uber/presentation/pages/map/logic/search_destination/search_destination_logic.dart';
@@ -109,11 +109,11 @@ class _ResultsOfSearchText extends StatelessWidget {
                 onPointerDown: controller.onListPointerDown,
                 onPointerUp: controller.onListPointerUp,
                 onPointerMove: (d) => controller.onListPointerMove(d, context),
-                child: BlocBuilder<GoogleMapCubit, ResultState<PlaceInfo>>(
+                child: BlocBuilder<GoogleMapCubit, ResultState>(
                   buildWhen: (previous, current) {
                     return current.maybeWhen(
                       initial: () => true,
-                      success: (data) => true,
+                      placesSuggestionsLoaded: (data) => true,
                       error: (NetworkExceptions networkExceptions) {
                         ToastShow.reformatToast(
                             context, networkExceptions.toString());
@@ -124,7 +124,8 @@ class _ResultsOfSearchText extends StatelessWidget {
                   },
                   builder: (context, state) {
                     return state.maybeWhen(
-                      success: (placeInfo) => _PlaceSuggestionsList(placeInfo),
+                      placesSuggestionsLoaded: (placeInfo) =>
+                          _PlaceSuggestionsList(placeInfo),
                       orElse: () => const _SavedResultsList(),
                     );
                   },
@@ -187,20 +188,29 @@ class _SavedResultsList extends StatelessWidget {
 
 class _PlaceSuggestionsList extends StatelessWidget {
   const _PlaceSuggestionsList(this.placeInfo, {Key? key}) : super(key: key);
-  final PlaceInfo placeInfo;
+  final PlacesSuggestions placeInfo;
   @override
   Widget build(BuildContext context) {
+    final SearchDestinationLogic textFieldsController = Get.find(tag: "1");
+
     return Container(
         color: ColorManager.white,
         child: ListView.separated(
             itemBuilder: (context, index) {
-              Predictions? suggestion = placeInfo.predictions?[index];
+              Prediction? suggestionPlace = placeInfo.predictions?[index];
               return GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    textFieldsController
+                        .onSelectedSuggestionPlace(suggestionPlace);
+                    GoogleMapCubit.get(context).getPlacesSuggestions("");
+
+                  },
                   child: _CustomListTitle(
-                      text: suggestion?.structuredFormatting?.mainText ?? "",
-                      subText:
-                          suggestion?.structuredFormatting?.secondaryText ?? "",
+                      text:
+                          suggestionPlace?.structuredFormatting?.mainText ?? "",
+                      subText: suggestionPlace
+                              ?.structuredFormatting?.secondaryText ??
+                          "",
                       icon: Icons.location_on));
             },
             separatorBuilder: (context, index) =>
@@ -232,7 +242,7 @@ class SearchBars extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            BlocBuilder<GoogleMapCubit, ResultState<PlaceInfo>>(
+            BlocBuilder<GoogleMapCubit, ResultState>(
               builder: (context, state) {
                 return state.maybeWhen(
                   loading: () => const LinearProgressIndicator(
@@ -285,18 +295,24 @@ class _SearchTextFields extends StatelessWidget {
             Listener(
               onPointerDown: (d) {
                 appearanceController.changeTheAppearing(false);
+                textFieldsController.isWhereFromSelected.value = true;
+                textFieldsController.selectAllTextInFrom();
               },
               child: _SearchTextField(
                   controller: textFieldsController.fromController,
+                  focusNode: textFieldsController.whereFromFocusNode.value,
                   hint: "Where from?"),
             ),
             const RSizedBox(height: 10),
             Listener(
               onPointerDown: (d) {
                 appearanceController.changeTheAppearing(false);
+                textFieldsController.isWhereFromSelected.value = false;
+                textFieldsController.selectAllTextInTo();
               },
               child: _SearchTextField(
                   controller: textFieldsController.toController,
+                  focusNode: textFieldsController.whereToFocusNode.value,
                   hint: "Where to?"),
             ),
           ],
@@ -367,31 +383,38 @@ class _CustomListTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: REdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      child: Row(
-        children: [
-          CircleAvatar(
-            backgroundColor: ColorManager.lightGrey,
-            radius: 18.r,
-            child: Center(
-                child: Icon(icon, color: ColorManager.white, size: 20.r)),
-          ),
-          const RSizedBox(width: 20),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(text, style: getNormalStyle(fontSize: 14)),
-              if (subText.isNotEmpty) ...[
-                const RSizedBox(height: 5),
-                Text(subText,
-                    style:
-                        getNormalStyle(fontSize: 13, color: ColorManager.grey)),
-              ],
-            ],
-          ),
-        ],
+    return Container(
+      color: ColorManager.transparent,
+      child: Padding(
+        padding: REdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        child: Row(
+          children: [
+            CircleAvatar(
+              backgroundColor: ColorManager.lightGrey,
+              radius: 18.r,
+              child: Center(
+                  child: Icon(icon, color: ColorManager.white, size: 20.r)),
+            ),
+            const RSizedBox(width: 20),
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(text, style: getNormalStyle(fontSize: 14)),
+                  if (subText.isNotEmpty) ...[
+                    const RSizedBox(height: 5),
+                    Text(subText,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                        style:
+                            getNormalStyle(fontSize: 13, color: ColorManager.grey)),
+                  ],
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -400,13 +423,18 @@ class _CustomListTitle extends StatelessWidget {
 class _SearchTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
+  final FocusNode focusNode;
   const _SearchTextField(
-      {Key? key, required this.controller, required this.hint})
+      {Key? key,
+      required this.focusNode,
+      required this.controller,
+      required this.hint})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      focusNode: focusNode,
       onChanged: (input) {
         GoogleMapCubit.get(context).getPlacesSuggestions(input);
       },

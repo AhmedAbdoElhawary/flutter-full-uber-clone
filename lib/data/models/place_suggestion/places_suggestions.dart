@@ -1,21 +1,21 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'place_info.g.dart';
+part 'places_suggestions.g.dart';
 
 @JsonSerializable(includeIfNull: true)
-class PlaceInfo {
-  List<Predictions>? predictions;
+class PlacesSuggestions {
+  List<Prediction>? predictions;
   String? status;
 
-  PlaceInfo({this.predictions, this.status});
-  factory PlaceInfo.fromJson(Map<String, dynamic> json) =>
-      _$PlaceInfoFromJson(json);
+  PlacesSuggestions({this.predictions, this.status});
+  factory PlacesSuggestions.fromJson(Map<String, dynamic> json) =>
+      _$PlacesSuggestionsFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PlaceInfoToJson(this);
+  Map<String, dynamic> toJson() => _$PlacesSuggestionsToJson(this);
 }
 
 @JsonSerializable(includeIfNull: true)
-class Predictions {
+class Prediction {
   String? description;
   @JsonKey(name: "place_id")
   String? placeId;
@@ -24,16 +24,16 @@ class Predictions {
   StructuredFormatting? structuredFormatting;
   List<String>? types;
 
-  Predictions(
+  Prediction(
       {this.description,
       this.placeId,
       this.reference,
       this.structuredFormatting,
       this.types});
-  factory Predictions.fromJson(Map<String, dynamic> json) =>
-      _$PredictionsFromJson(json);
+  factory Prediction.fromJson(Map<String, dynamic> json) =>
+      _$PredictionFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PredictionsToJson(this);
+  Map<String, dynamic> toJson() => _$PredictionToJson(this);
 }
 
 @JsonSerializable(includeIfNull: true)

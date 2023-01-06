@@ -21,7 +21,7 @@ class _GoogleMapAPIs implements GoogleMapAPIs {
   String? baseUrl;
 
   @override
-  Future<PlaceInfo> getPlacesSuggestions({
+  Future<PlacesSuggestions> getPlacesSuggestions({
     required input,
     apiKey = mapApiKey,
     required sessionToken,
@@ -35,7 +35,7 @@ class _GoogleMapAPIs implements GoogleMapAPIs {
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<PlaceInfo>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<PlacesSuggestions>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -47,7 +47,38 @@ class _GoogleMapAPIs implements GoogleMapAPIs {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PlaceInfo.fromJson(_result.data!);
+    final value = PlacesSuggestions.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<PlaceLocationInfo> getPlacesLocation({
+    required placeId,
+    apiKey = mapApiKey,
+    required sessionToken,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'place_id': placeId,
+      r'key': apiKey,
+      r'sessiontoken': sessionToken,
+    };
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<PlaceLocationInfo>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'details/json?fields=geometry',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = PlaceLocationInfo.fromJson(_result.data!);
     return value;
   }
 
