@@ -1,24 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'place_info.dart';
+part of 'places_suggestions.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PlaceInfo _$PlaceInfoFromJson(Map<String, dynamic> json) => PlaceInfo(
+PlacesSuggestions _$PlacesSuggestionsFromJson(Map<String, dynamic> json) =>
+    PlacesSuggestions(
       predictions: (json['predictions'] as List<dynamic>?)
-          ?.map((e) => Predictions.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Prediction.fromJson(e as Map<String, dynamic>))
           .toList(),
       status: json['status'] as String?,
     );
 
-Map<String, dynamic> _$PlaceInfoToJson(PlaceInfo instance) => <String, dynamic>{
+Map<String, dynamic> _$PlacesSuggestionsToJson(PlacesSuggestions instance) =>
+    <String, dynamic>{
       'predictions': instance.predictions,
       'status': instance.status,
     };
 
-Predictions _$PredictionsFromJson(Map<String, dynamic> json) => Predictions(
+Prediction _$PredictionFromJson(Map<String, dynamic> json) => Prediction(
       description: json['description'] as String?,
       placeId: json['place_id'] as String?,
       reference: json['reference'] as String?,
@@ -30,7 +32,7 @@ Predictions _$PredictionsFromJson(Map<String, dynamic> json) => Predictions(
           (json['types'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
-Map<String, dynamic> _$PredictionsToJson(Predictions instance) =>
+Map<String, dynamic> _$PredictionToJson(Prediction instance) =>
     <String, dynamic>{
       'description': instance.description,
       'place_id': instance.placeId,
