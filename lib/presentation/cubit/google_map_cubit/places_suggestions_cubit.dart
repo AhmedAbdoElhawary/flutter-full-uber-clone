@@ -24,13 +24,13 @@ class GoogleMapCubit extends Cubit<ResultState> {
         failure: (exception) => emit(ResultState.error(exception)));
   }
 
-  Future<void> getPlaceLocation(String placeId) async {
-    if (placeId.isEmpty) return emit(const ResultState.initial());
+  Future<void> getPlaceLocation(List<String> placesIds) async {
+    if (placesIds.isEmpty) return emit(const ResultState.initial());
     emit(const ResultState.loading());
-    ApiResult<PlaceLocationInfo> result =
-        await _googleMapAPIsRepo.getPlacesLocation(placeId: placeId);
+    ApiResult<List<PlaceLocationInfo>> result =
+        await _googleMapAPIsRepo.getPlacesLocation(placesIds: placesIds);
     result.when(
-        success: (location) => emit(ResultState.placeLocationLoaded(location)),
+        success: (location) => emit(ResultState.placesLocationLoaded(location)),
         failure: (exception) => emit(ResultState.error(exception)));
   }
 }
