@@ -21,7 +21,7 @@ class AppearanceOfSearchListLogic extends GetxController {
   void onListPointerUp(PointerUpEvent details) {
     bool appear = _additionSpace(details.position) < 100;
     _positionInTop.value = 130.h;
-    changeTheAppearing(!appear);
+    changeTheAppearing(disAppear: !appear);
   }
 
   /// taping start
@@ -31,7 +31,7 @@ class AppearanceOfSearchListLogic extends GetxController {
 
   double _additionSpace(Offset position) => position.dy - _startTapPoint.value;
 
-  void changeTheAppearing(bool disAppear) {
+  void changeTheAppearing({required bool disAppear}) {
     _positionInTop.value = disAppear ? sizeOfScreen.height : 130.h;
     update(["pointer"]);
   }
