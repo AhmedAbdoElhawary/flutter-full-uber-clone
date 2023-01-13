@@ -12,25 +12,45 @@ import 'package:uber/presentation/pages/map/widgets/map_widgets/circle_with_box_
 import 'package:uber/presentation/pages/map/widgets/map_widgets/location_icon.dart';
 
 class MapScreen extends StatelessWidget {
-  const MapScreen({Key? key}) : super(key: key);
-
+  const MapScreen({this.isThatSearchDestination = false, Key? key})
+      : super(key: key);
+  final bool isThatSearchDestination;
   @override
   Widget build(BuildContext context) {
-    MapLogic mapControl = Get.put(MapLogic(), tag: '2');
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness: Brightness.dark),
-      child: Scaffold(
-        body: Obx(
-          () => Stack(
+    return GetBuilder<MapLogic>(
+      id: 'update',
+      tag: '2',
+      initState: (state) {
+        Get.put<MapLogic>(MapLogic(), tag: '2');
+      },
+      builder: (mapControl) {
+        switch (isThatSearchDestination) {
+          case true:
+            return buildScaffold(mapControl, false);
+          default:
+            return AnnotatedRegion<SystemUiOverlayStyle>(
+              value: const SystemUiOverlayStyle(
+                  statusBarColor: Colors.transparent,
+                  statusBarIconBrightness: Brightness.dark),
+              child: buildScaffold(mapControl, true),
+            );
+        }
+      },
+    );
+  }
+
+  Scaffold buildScaffold(MapLogic mapControl, bool initialMap) {
+    return Scaffold(
+      body: SafeArea(
+        child: Obx(
+              () => Stack(
             fit: StackFit.expand,
             children: [
               mapControl.getCurrentPosition != null
-                  ? buildScreen(mapControl)
+                  ? buildScreen(mapControl,initialMap)
                   : const Center(
-                      child: ThineCircularProgress(color: ColorManager.black)),
-              const _BackButton(),
+                  child: ThineCircularProgress(color: ColorManager.black)),
+              if (initialMap) const _BackButton(),
             ],
           ),
         ),
@@ -38,40 +58,52 @@ class MapScreen extends StatelessWidget {
     );
   }
 
-  Column buildScreen(MapLogic mapControl) {
-    return Column(
-      children: [
-        Flexible(child: MapDisplay(mapControl: mapControl)),
-        const _SearchContainer(),
-      ],
-    );
+  Widget buildScreen(MapLogic mapControl,bool initialMap) {
+    if(initialMap){
+      return Column(
+        children: [
+          Flexible(child: MapDisplay(mapControl: mapControl)),
+          _SearchContainer(mapControl),
+        ],
+      );
+    }else{
+      return MapDisplay(mapControl: mapControl,initialMap: false);
+    }
+
   }
 }
 
 class MapDisplay extends StatelessWidget {
-  const MapDisplay({Key? key, required this.mapControl}) : super(key: key);
+  const MapDisplay({Key? key, required this.mapControl,this.initialMap=true}) : super(key: key);
 
   final MapLogic mapControl;
-
+  final bool initialMap;
   @override
   Widget build(BuildContext context) {
     return Stack(
+      fit: StackFit.expand,
       children: [
-        CustomGoogleMap(mapControl: mapControl),
-        Align(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: REdgeInsets.symmetric(vertical: 35, horizontal: 15),
-              child: const MyLocationIcon(tag: "2"),
-            ))
+        const CustomGoogleMap(tag: '2', id: "update"),
+        if(initialMap)...[
+          Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: REdgeInsets.symmetric(vertical: 35, horizontal: 15),
+                child: const MyLocationIcon(tag: "2"),
+              ))
+        ]else...[
+          const DoneButtonWithLocationIcon(),
+          const Align(alignment: Alignment.topCenter, child: ResultsOfSearchText()),
+        ],
+
       ],
     );
   }
 }
 
 class _SearchContainer extends StatelessWidget {
-  const _SearchContainer({Key? key}) : super(key: key);
-
+  const _SearchContainer(this.mapControl, {Key? key}) : super(key: key);
+  final MapLogic mapControl;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -89,7 +121,7 @@ class _SearchContainer extends StatelessWidget {
         padding: REdgeInsets.only(left: 15, right: 15, bottom: 60, top: 15),
         child: GestureDetector(
           onTap: () {
-            Go.to(const SearchDestinationPage());
+            Go.offAll(const MapScreen(isThatSearchDestination: true));
           },
           child: Container(
             width: double.infinity,
@@ -119,9 +151,7 @@ class _BackButton extends StatelessWidget {
         padding: REdgeInsets.symmetric(vertical: 35, horizontal: 15),
         child: GestureDetector(
           onTap: () => Go.back(),
-          child:  CircleWithBoxShadow(
-            child: Icon(Icons.arrow_back, size: 25.r),
-          ),
+          child: CircleWithBoxShadow(child: Icon(Icons.arrow_back, size: 25.r)),
         ),
       ),
     );

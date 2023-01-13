@@ -22,8 +22,8 @@ mixin _$ResultState {
     required TResult Function() loading,
     required TResult Function(PlacesSuggestions placeInfo)
         placesSuggestionsLoaded,
-    required TResult Function(PlaceLocationInfo placeLocationInfo)
-        placeLocationLoaded,
+    required TResult Function(List<PlaceLocationInfo> placesLocationInfo)
+        placesLocationLoaded,
     required TResult Function(NetworkExceptions networkExceptions) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -32,7 +32,8 @@ mixin _$ResultState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(PlacesSuggestions placeInfo)? placesSuggestionsLoaded,
-    TResult? Function(PlaceLocationInfo placeLocationInfo)? placeLocationLoaded,
+    TResult? Function(List<PlaceLocationInfo> placesLocationInfo)?
+        placesLocationLoaded,
     TResult? Function(NetworkExceptions networkExceptions)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -41,7 +42,8 @@ mixin _$ResultState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(PlacesSuggestions placeInfo)? placesSuggestionsLoaded,
-    TResult Function(PlaceLocationInfo placeLocationInfo)? placeLocationLoaded,
+    TResult Function(List<PlaceLocationInfo> placesLocationInfo)?
+        placesLocationLoaded,
     TResult Function(NetworkExceptions networkExceptions)? error,
     required TResult orElse(),
   }) =>
@@ -52,7 +54,7 @@ mixin _$ResultState {
     required TResult Function(Loading value) loading,
     required TResult Function(PlacesSuggestionsLoaded value)
         placesSuggestionsLoaded,
-    required TResult Function(PlaceLocationLoaded value) placeLocationLoaded,
+    required TResult Function(PlacesLocationLoaded value) placesLocationLoaded,
     required TResult Function(Error value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -61,7 +63,7 @@ mixin _$ResultState {
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
     TResult? Function(PlacesSuggestionsLoaded value)? placesSuggestionsLoaded,
-    TResult? Function(PlaceLocationLoaded value)? placeLocationLoaded,
+    TResult? Function(PlacesLocationLoaded value)? placesLocationLoaded,
     TResult? Function(Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -70,7 +72,7 @@ mixin _$ResultState {
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
     TResult Function(PlacesSuggestionsLoaded value)? placesSuggestionsLoaded,
-    TResult Function(PlaceLocationLoaded value)? placeLocationLoaded,
+    TResult Function(PlacesLocationLoaded value)? placesLocationLoaded,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) =>
@@ -135,8 +137,8 @@ class _$Initial implements Initial {
     required TResult Function() loading,
     required TResult Function(PlacesSuggestions placeInfo)
         placesSuggestionsLoaded,
-    required TResult Function(PlaceLocationInfo placeLocationInfo)
-        placeLocationLoaded,
+    required TResult Function(List<PlaceLocationInfo> placesLocationInfo)
+        placesLocationLoaded,
     required TResult Function(NetworkExceptions networkExceptions) error,
   }) {
     return initial();
@@ -148,7 +150,8 @@ class _$Initial implements Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(PlacesSuggestions placeInfo)? placesSuggestionsLoaded,
-    TResult? Function(PlaceLocationInfo placeLocationInfo)? placeLocationLoaded,
+    TResult? Function(List<PlaceLocationInfo> placesLocationInfo)?
+        placesLocationLoaded,
     TResult? Function(NetworkExceptions networkExceptions)? error,
   }) {
     return initial?.call();
@@ -160,7 +163,8 @@ class _$Initial implements Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(PlacesSuggestions placeInfo)? placesSuggestionsLoaded,
-    TResult Function(PlaceLocationInfo placeLocationInfo)? placeLocationLoaded,
+    TResult Function(List<PlaceLocationInfo> placesLocationInfo)?
+        placesLocationLoaded,
     TResult Function(NetworkExceptions networkExceptions)? error,
     required TResult orElse(),
   }) {
@@ -177,7 +181,7 @@ class _$Initial implements Initial {
     required TResult Function(Loading value) loading,
     required TResult Function(PlacesSuggestionsLoaded value)
         placesSuggestionsLoaded,
-    required TResult Function(PlaceLocationLoaded value) placeLocationLoaded,
+    required TResult Function(PlacesLocationLoaded value) placesLocationLoaded,
     required TResult Function(Error value) error,
   }) {
     return initial(this);
@@ -189,7 +193,7 @@ class _$Initial implements Initial {
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
     TResult? Function(PlacesSuggestionsLoaded value)? placesSuggestionsLoaded,
-    TResult? Function(PlaceLocationLoaded value)? placeLocationLoaded,
+    TResult? Function(PlacesLocationLoaded value)? placesLocationLoaded,
     TResult? Function(Error value)? error,
   }) {
     return initial?.call(this);
@@ -201,7 +205,7 @@ class _$Initial implements Initial {
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
     TResult Function(PlacesSuggestionsLoaded value)? placesSuggestionsLoaded,
-    TResult Function(PlaceLocationLoaded value)? placeLocationLoaded,
+    TResult Function(PlacesLocationLoaded value)? placesLocationLoaded,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -256,8 +260,8 @@ class _$Loading implements Loading {
     required TResult Function() loading,
     required TResult Function(PlacesSuggestions placeInfo)
         placesSuggestionsLoaded,
-    required TResult Function(PlaceLocationInfo placeLocationInfo)
-        placeLocationLoaded,
+    required TResult Function(List<PlaceLocationInfo> placesLocationInfo)
+        placesLocationLoaded,
     required TResult Function(NetworkExceptions networkExceptions) error,
   }) {
     return loading();
@@ -269,7 +273,8 @@ class _$Loading implements Loading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(PlacesSuggestions placeInfo)? placesSuggestionsLoaded,
-    TResult? Function(PlaceLocationInfo placeLocationInfo)? placeLocationLoaded,
+    TResult? Function(List<PlaceLocationInfo> placesLocationInfo)?
+        placesLocationLoaded,
     TResult? Function(NetworkExceptions networkExceptions)? error,
   }) {
     return loading?.call();
@@ -281,7 +286,8 @@ class _$Loading implements Loading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(PlacesSuggestions placeInfo)? placesSuggestionsLoaded,
-    TResult Function(PlaceLocationInfo placeLocationInfo)? placeLocationLoaded,
+    TResult Function(List<PlaceLocationInfo> placesLocationInfo)?
+        placesLocationLoaded,
     TResult Function(NetworkExceptions networkExceptions)? error,
     required TResult orElse(),
   }) {
@@ -298,7 +304,7 @@ class _$Loading implements Loading {
     required TResult Function(Loading value) loading,
     required TResult Function(PlacesSuggestionsLoaded value)
         placesSuggestionsLoaded,
-    required TResult Function(PlaceLocationLoaded value) placeLocationLoaded,
+    required TResult Function(PlacesLocationLoaded value) placesLocationLoaded,
     required TResult Function(Error value) error,
   }) {
     return loading(this);
@@ -310,7 +316,7 @@ class _$Loading implements Loading {
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
     TResult? Function(PlacesSuggestionsLoaded value)? placesSuggestionsLoaded,
-    TResult? Function(PlaceLocationLoaded value)? placeLocationLoaded,
+    TResult? Function(PlacesLocationLoaded value)? placesLocationLoaded,
     TResult? Function(Error value)? error,
   }) {
     return loading?.call(this);
@@ -322,7 +328,7 @@ class _$Loading implements Loading {
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
     TResult Function(PlacesSuggestionsLoaded value)? placesSuggestionsLoaded,
-    TResult Function(PlaceLocationLoaded value)? placeLocationLoaded,
+    TResult Function(PlacesLocationLoaded value)? placesLocationLoaded,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -407,8 +413,8 @@ class _$PlacesSuggestionsLoaded implements PlacesSuggestionsLoaded {
     required TResult Function() loading,
     required TResult Function(PlacesSuggestions placeInfo)
         placesSuggestionsLoaded,
-    required TResult Function(PlaceLocationInfo placeLocationInfo)
-        placeLocationLoaded,
+    required TResult Function(List<PlaceLocationInfo> placesLocationInfo)
+        placesLocationLoaded,
     required TResult Function(NetworkExceptions networkExceptions) error,
   }) {
     return placesSuggestionsLoaded(placeInfo);
@@ -420,7 +426,8 @@ class _$PlacesSuggestionsLoaded implements PlacesSuggestionsLoaded {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(PlacesSuggestions placeInfo)? placesSuggestionsLoaded,
-    TResult? Function(PlaceLocationInfo placeLocationInfo)? placeLocationLoaded,
+    TResult? Function(List<PlaceLocationInfo> placesLocationInfo)?
+        placesLocationLoaded,
     TResult? Function(NetworkExceptions networkExceptions)? error,
   }) {
     return placesSuggestionsLoaded?.call(placeInfo);
@@ -432,7 +439,8 @@ class _$PlacesSuggestionsLoaded implements PlacesSuggestionsLoaded {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(PlacesSuggestions placeInfo)? placesSuggestionsLoaded,
-    TResult Function(PlaceLocationInfo placeLocationInfo)? placeLocationLoaded,
+    TResult Function(List<PlaceLocationInfo> placesLocationInfo)?
+        placesLocationLoaded,
     TResult Function(NetworkExceptions networkExceptions)? error,
     required TResult orElse(),
   }) {
@@ -449,7 +457,7 @@ class _$PlacesSuggestionsLoaded implements PlacesSuggestionsLoaded {
     required TResult Function(Loading value) loading,
     required TResult Function(PlacesSuggestionsLoaded value)
         placesSuggestionsLoaded,
-    required TResult Function(PlaceLocationLoaded value) placeLocationLoaded,
+    required TResult Function(PlacesLocationLoaded value) placesLocationLoaded,
     required TResult Function(Error value) error,
   }) {
     return placesSuggestionsLoaded(this);
@@ -461,7 +469,7 @@ class _$PlacesSuggestionsLoaded implements PlacesSuggestionsLoaded {
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
     TResult? Function(PlacesSuggestionsLoaded value)? placesSuggestionsLoaded,
-    TResult? Function(PlaceLocationLoaded value)? placeLocationLoaded,
+    TResult? Function(PlacesLocationLoaded value)? placesLocationLoaded,
     TResult? Function(Error value)? error,
   }) {
     return placesSuggestionsLoaded?.call(this);
@@ -473,7 +481,7 @@ class _$PlacesSuggestionsLoaded implements PlacesSuggestionsLoaded {
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
     TResult Function(PlacesSuggestionsLoaded value)? placesSuggestionsLoaded,
-    TResult Function(PlaceLocationLoaded value)? placeLocationLoaded,
+    TResult Function(PlacesLocationLoaded value)? placesLocationLoaded,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
@@ -495,66 +503,74 @@ abstract class PlacesSuggestionsLoaded implements ResultState {
 }
 
 /// @nodoc
-abstract class _$$PlaceLocationLoadedCopyWith<$Res> {
-  factory _$$PlaceLocationLoadedCopyWith(_$PlaceLocationLoaded value,
-          $Res Function(_$PlaceLocationLoaded) then) =
-      __$$PlaceLocationLoadedCopyWithImpl<$Res>;
+abstract class _$$PlacesLocationLoadedCopyWith<$Res> {
+  factory _$$PlacesLocationLoadedCopyWith(_$PlacesLocationLoaded value,
+          $Res Function(_$PlacesLocationLoaded) then) =
+      __$$PlacesLocationLoadedCopyWithImpl<$Res>;
   @useResult
-  $Res call({PlaceLocationInfo placeLocationInfo});
+  $Res call({List<PlaceLocationInfo> placesLocationInfo});
 }
 
 /// @nodoc
-class __$$PlaceLocationLoadedCopyWithImpl<$Res>
-    extends _$ResultStateCopyWithImpl<$Res, _$PlaceLocationLoaded>
-    implements _$$PlaceLocationLoadedCopyWith<$Res> {
-  __$$PlaceLocationLoadedCopyWithImpl(
-      _$PlaceLocationLoaded _value, $Res Function(_$PlaceLocationLoaded) _then)
+class __$$PlacesLocationLoadedCopyWithImpl<$Res>
+    extends _$ResultStateCopyWithImpl<$Res, _$PlacesLocationLoaded>
+    implements _$$PlacesLocationLoadedCopyWith<$Res> {
+  __$$PlacesLocationLoadedCopyWithImpl(_$PlacesLocationLoaded _value,
+      $Res Function(_$PlacesLocationLoaded) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? placeLocationInfo = null,
+    Object? placesLocationInfo = null,
   }) {
-    return _then(_$PlaceLocationLoaded(
-      null == placeLocationInfo
-          ? _value.placeLocationInfo
-          : placeLocationInfo // ignore: cast_nullable_to_non_nullable
-              as PlaceLocationInfo,
+    return _then(_$PlacesLocationLoaded(
+      null == placesLocationInfo
+          ? _value._placesLocationInfo
+          : placesLocationInfo // ignore: cast_nullable_to_non_nullable
+              as List<PlaceLocationInfo>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$PlaceLocationLoaded implements PlaceLocationLoaded {
-  const _$PlaceLocationLoaded(this.placeLocationInfo);
+class _$PlacesLocationLoaded implements PlacesLocationLoaded {
+  const _$PlacesLocationLoaded(final List<PlaceLocationInfo> placesLocationInfo)
+      : _placesLocationInfo = placesLocationInfo;
 
+  final List<PlaceLocationInfo> _placesLocationInfo;
   @override
-  final PlaceLocationInfo placeLocationInfo;
+  List<PlaceLocationInfo> get placesLocationInfo {
+    if (_placesLocationInfo is EqualUnmodifiableListView)
+      return _placesLocationInfo;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_placesLocationInfo);
+  }
 
   @override
   String toString() {
-    return 'ResultState.placeLocationLoaded(placeLocationInfo: $placeLocationInfo)';
+    return 'ResultState.placesLocationLoaded(placesLocationInfo: $placesLocationInfo)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$PlaceLocationLoaded &&
-            (identical(other.placeLocationInfo, placeLocationInfo) ||
-                other.placeLocationInfo == placeLocationInfo));
+            other is _$PlacesLocationLoaded &&
+            const DeepCollectionEquality()
+                .equals(other._placesLocationInfo, _placesLocationInfo));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, placeLocationInfo);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_placesLocationInfo));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$PlaceLocationLoadedCopyWith<_$PlaceLocationLoaded> get copyWith =>
-      __$$PlaceLocationLoadedCopyWithImpl<_$PlaceLocationLoaded>(
+  _$$PlacesLocationLoadedCopyWith<_$PlacesLocationLoaded> get copyWith =>
+      __$$PlacesLocationLoadedCopyWithImpl<_$PlacesLocationLoaded>(
           this, _$identity);
 
   @override
@@ -564,11 +580,11 @@ class _$PlaceLocationLoaded implements PlaceLocationLoaded {
     required TResult Function() loading,
     required TResult Function(PlacesSuggestions placeInfo)
         placesSuggestionsLoaded,
-    required TResult Function(PlaceLocationInfo placeLocationInfo)
-        placeLocationLoaded,
+    required TResult Function(List<PlaceLocationInfo> placesLocationInfo)
+        placesLocationLoaded,
     required TResult Function(NetworkExceptions networkExceptions) error,
   }) {
-    return placeLocationLoaded(placeLocationInfo);
+    return placesLocationLoaded(placesLocationInfo);
   }
 
   @override
@@ -577,10 +593,11 @@ class _$PlaceLocationLoaded implements PlaceLocationLoaded {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(PlacesSuggestions placeInfo)? placesSuggestionsLoaded,
-    TResult? Function(PlaceLocationInfo placeLocationInfo)? placeLocationLoaded,
+    TResult? Function(List<PlaceLocationInfo> placesLocationInfo)?
+        placesLocationLoaded,
     TResult? Function(NetworkExceptions networkExceptions)? error,
   }) {
-    return placeLocationLoaded?.call(placeLocationInfo);
+    return placesLocationLoaded?.call(placesLocationInfo);
   }
 
   @override
@@ -589,12 +606,13 @@ class _$PlaceLocationLoaded implements PlaceLocationLoaded {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(PlacesSuggestions placeInfo)? placesSuggestionsLoaded,
-    TResult Function(PlaceLocationInfo placeLocationInfo)? placeLocationLoaded,
+    TResult Function(List<PlaceLocationInfo> placesLocationInfo)?
+        placesLocationLoaded,
     TResult Function(NetworkExceptions networkExceptions)? error,
     required TResult orElse(),
   }) {
-    if (placeLocationLoaded != null) {
-      return placeLocationLoaded(placeLocationInfo);
+    if (placesLocationLoaded != null) {
+      return placesLocationLoaded(placesLocationInfo);
     }
     return orElse();
   }
@@ -606,10 +624,10 @@ class _$PlaceLocationLoaded implements PlaceLocationLoaded {
     required TResult Function(Loading value) loading,
     required TResult Function(PlacesSuggestionsLoaded value)
         placesSuggestionsLoaded,
-    required TResult Function(PlaceLocationLoaded value) placeLocationLoaded,
+    required TResult Function(PlacesLocationLoaded value) placesLocationLoaded,
     required TResult Function(Error value) error,
   }) {
-    return placeLocationLoaded(this);
+    return placesLocationLoaded(this);
   }
 
   @override
@@ -618,10 +636,10 @@ class _$PlaceLocationLoaded implements PlaceLocationLoaded {
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
     TResult? Function(PlacesSuggestionsLoaded value)? placesSuggestionsLoaded,
-    TResult? Function(PlaceLocationLoaded value)? placeLocationLoaded,
+    TResult? Function(PlacesLocationLoaded value)? placesLocationLoaded,
     TResult? Function(Error value)? error,
   }) {
-    return placeLocationLoaded?.call(this);
+    return placesLocationLoaded?.call(this);
   }
 
   @override
@@ -630,24 +648,25 @@ class _$PlaceLocationLoaded implements PlaceLocationLoaded {
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
     TResult Function(PlacesSuggestionsLoaded value)? placesSuggestionsLoaded,
-    TResult Function(PlaceLocationLoaded value)? placeLocationLoaded,
+    TResult Function(PlacesLocationLoaded value)? placesLocationLoaded,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
-    if (placeLocationLoaded != null) {
-      return placeLocationLoaded(this);
+    if (placesLocationLoaded != null) {
+      return placesLocationLoaded(this);
     }
     return orElse();
   }
 }
 
-abstract class PlaceLocationLoaded implements ResultState {
-  const factory PlaceLocationLoaded(final PlaceLocationInfo placeLocationInfo) =
-      _$PlaceLocationLoaded;
+abstract class PlacesLocationLoaded implements ResultState {
+  const factory PlacesLocationLoaded(
+          final List<PlaceLocationInfo> placesLocationInfo) =
+      _$PlacesLocationLoaded;
 
-  PlaceLocationInfo get placeLocationInfo;
+  List<PlaceLocationInfo> get placesLocationInfo;
   @JsonKey(ignore: true)
-  _$$PlaceLocationLoadedCopyWith<_$PlaceLocationLoaded> get copyWith =>
+  _$$PlacesLocationLoadedCopyWith<_$PlacesLocationLoaded> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -728,8 +747,8 @@ class _$Error implements Error {
     required TResult Function() loading,
     required TResult Function(PlacesSuggestions placeInfo)
         placesSuggestionsLoaded,
-    required TResult Function(PlaceLocationInfo placeLocationInfo)
-        placeLocationLoaded,
+    required TResult Function(List<PlaceLocationInfo> placesLocationInfo)
+        placesLocationLoaded,
     required TResult Function(NetworkExceptions networkExceptions) error,
   }) {
     return error(networkExceptions);
@@ -741,7 +760,8 @@ class _$Error implements Error {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(PlacesSuggestions placeInfo)? placesSuggestionsLoaded,
-    TResult? Function(PlaceLocationInfo placeLocationInfo)? placeLocationLoaded,
+    TResult? Function(List<PlaceLocationInfo> placesLocationInfo)?
+        placesLocationLoaded,
     TResult? Function(NetworkExceptions networkExceptions)? error,
   }) {
     return error?.call(networkExceptions);
@@ -753,7 +773,8 @@ class _$Error implements Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(PlacesSuggestions placeInfo)? placesSuggestionsLoaded,
-    TResult Function(PlaceLocationInfo placeLocationInfo)? placeLocationLoaded,
+    TResult Function(List<PlaceLocationInfo> placesLocationInfo)?
+        placesLocationLoaded,
     TResult Function(NetworkExceptions networkExceptions)? error,
     required TResult orElse(),
   }) {
@@ -770,7 +791,7 @@ class _$Error implements Error {
     required TResult Function(Loading value) loading,
     required TResult Function(PlacesSuggestionsLoaded value)
         placesSuggestionsLoaded,
-    required TResult Function(PlaceLocationLoaded value) placeLocationLoaded,
+    required TResult Function(PlacesLocationLoaded value) placesLocationLoaded,
     required TResult Function(Error value) error,
   }) {
     return error(this);
@@ -782,7 +803,7 @@ class _$Error implements Error {
     TResult? Function(Initial value)? initial,
     TResult? Function(Loading value)? loading,
     TResult? Function(PlacesSuggestionsLoaded value)? placesSuggestionsLoaded,
-    TResult? Function(PlaceLocationLoaded value)? placeLocationLoaded,
+    TResult? Function(PlacesLocationLoaded value)? placesLocationLoaded,
     TResult? Function(Error value)? error,
   }) {
     return error?.call(this);
@@ -794,7 +815,7 @@ class _$Error implements Error {
     TResult Function(Initial value)? initial,
     TResult Function(Loading value)? loading,
     TResult Function(PlacesSuggestionsLoaded value)? placesSuggestionsLoaded,
-    TResult Function(PlaceLocationLoaded value)? placeLocationLoaded,
+    TResult Function(PlacesLocationLoaded value)? placesLocationLoaded,
     TResult Function(Error value)? error,
     required TResult orElse(),
   }) {

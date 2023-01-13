@@ -14,8 +14,8 @@ class ResultState with _$ResultState {
   const factory ResultState.placesSuggestionsLoaded(PlacesSuggestions placeInfo) =
       PlacesSuggestionsLoaded;
 
-  const factory ResultState.placeLocationLoaded(
-      PlaceLocationInfo placeLocationInfo) = PlaceLocationLoaded;
+  const factory ResultState.placesLocationLoaded(
+      List<PlaceLocationInfo> placesLocationInfo) = PlacesLocationLoaded;
 
   const factory ResultState.error(NetworkExceptions networkExceptions) = Error;
 }
