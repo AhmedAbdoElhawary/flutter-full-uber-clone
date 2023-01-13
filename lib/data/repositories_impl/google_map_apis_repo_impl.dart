@@ -24,13 +24,18 @@ class GoogleMapAPIsRepoImpl implements GoogleMapAPIsRepo {
   }
 
   @override
-  Future<ApiResult<PlaceLocationInfo>> getPlacesLocation(
-      {required String placeId}) async {
+  Future<ApiResult<List<PlaceLocationInfo>>> getPlacesLocation(
+      {required List<String> placesIds}) async {
     try {
-      PlaceLocationInfo data = await _googleMapAPIs.getPlacesLocation(
-          placeId: placeId, sessionToken: const Uuid().v4());
+      List<PlaceLocationInfo> result = [];
 
-      return ApiResult.success(data);
+      for (final id in placesIds) {
+        PlaceLocationInfo data = await _googleMapAPIs.getPlacesLocation(
+            placeId: id, sessionToken: const Uuid().v4());
+        result.add(data);
+      }
+
+      return ApiResult.success(result);
     } catch (e) {
       return ApiResult.failure(NetworkExceptions.getDioException(e));
     }
