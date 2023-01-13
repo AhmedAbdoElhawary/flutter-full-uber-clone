@@ -61,6 +61,7 @@ class SearchDestinationLogic extends GetxController {
 
     // TODO: from and to complete so move to and draw the lines
     if (isStartAndEndComplete) return;
+
     if (isWhereFromSelected.value!) {
       whereToFocusNode.value.requestFocus();
       isWhereFromSelected.value = false;
