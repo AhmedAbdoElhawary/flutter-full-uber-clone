@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:uber/config/routes/route_app.dart';
 import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/core/resources/styles_manager.dart';
 import 'package:uber/presentation/common/widgets/custom_google_map.dart';
-import 'package:uber/presentation/pages/map/logic/map_logic.dart';
 import 'package:uber/presentation/pages/map/view/initial_map/initial_map_page.dart';
-import 'package:uber/presentation/pages/map/view/search_destination/search_destination_page.dart';
 
 const double _the20padding = 20;
 
@@ -85,7 +82,7 @@ class WhereToSearchBar extends StatelessWidget {
       padding: REdgeInsets.symmetric(vertical: 20.0),
       child: GestureDetector(
         onTap: () {
-          Go.to(const SearchDestinationPage());
+          Go.to(const MapScreen(isThatSearchDestination: true));
         },
         child: Container(
           padding: REdgeInsets.symmetric(vertical: 12, horizontal: 15),
@@ -218,9 +215,7 @@ class SmallMapDisplay extends StatelessWidget {
           children: [
             ClipRRect(
                 borderRadius: BorderRadius.circular(15.r),
-                child: CustomGoogleMap(
-                  mapControl: Get.put(MapLogic(), tag: '1'),
-                )),
+                child: const CustomGoogleMap()),
             const _ContainerForEnableTapOnMap(),
           ],
         ),
