@@ -1,20 +1,20 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'place_direction.g.dart';
+part 'places_direction.g.dart';
 
 @JsonSerializable(includeIfNull: true)
-class PlaceDirection {
+class PlacesDirection {
   @JsonKey(name: "geocoded_waypoints")
   List<GeocodedWaypoints>? geocodedWaypoints;
   List<Routes>? routes;
   String? status;
 
-  PlaceDirection({this.geocodedWaypoints, this.routes, this.status});
+  PlacesDirection({this.geocodedWaypoints, this.routes, this.status});
 
-  factory PlaceDirection.fromJson(Map<String, dynamic> json) =>
-      _$PlaceDirectionFromJson(json);
+  factory PlacesDirection.fromJson(Map<String, dynamic> json) =>
+      _$PlacesDirectionFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PlaceDirectionToJson(this);
+  Map<String, dynamic> toJson() => _$PlacesDirectionToJson(this);
 }
 
 @JsonSerializable(includeIfNull: true)
