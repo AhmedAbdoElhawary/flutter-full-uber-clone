@@ -25,13 +25,15 @@ class GoogleMapAPIsRepoImpl implements GoogleMapAPIsRepo {
 
   @override
   Future<ApiResult<List<PlaceLocationInfo>>> getPlacesLocation(
-      {required List<String> placesIds}) async {
+      {required List<Prediction> places}) async {
     try {
       List<PlaceLocationInfo> result = [];
 
-      for (final id in placesIds) {
+      for (final id in places) {
+        if (id.placeId == null) throw "there is place id empty";
         PlaceLocationInfo data = await _googleMapAPIs.getPlacesLocation(
-            placeId: id, sessionToken: const Uuid().v4());
+            placeId: id.placeId!, sessionToken: const Uuid().v4());
+        data.placeSubTextInfo = id.structuredFormatting;
         result.add(data);
       }
 

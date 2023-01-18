@@ -5,7 +5,8 @@ import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/presentation/pages/map/logic/map_logic.dart';
 
 class CustomGoogleMap extends StatelessWidget {
-  const CustomGoogleMap({this.tag="small map tag", this.id="small map id", super.key});
+  const CustomGoogleMap(
+      {this.tag = "small map tag", this.id = "small map id", super.key});
   final String tag;
   final String id;
   @override
@@ -14,7 +15,7 @@ class CustomGoogleMap extends StatelessWidget {
       id: id,
       tag: tag,
       initState: (state) {
-        if (tag=="small map tag") {
+        if (tag == "small map tag") {
           Get.put<MapLogic>(MapLogic(), tag: tag);
         } else {
           Get.find<MapLogic>(tag: tag);
@@ -36,13 +37,11 @@ class CustomGoogleMap extends StatelessWidget {
                 }
               },
               child: GoogleMap(
-
                 markers: mapControl.travelMarkers.value,
                 mapType: MapType.normal,
                 myLocationEnabled: true,
                 zoomControlsEnabled: false,
                 myLocationButtonEnabled: false,
-
                 initialCameraPosition:
                     mapControl.getMyCurrentLocationCameraPosition,
                 onMapCreated: (GoogleMapController controller) {
