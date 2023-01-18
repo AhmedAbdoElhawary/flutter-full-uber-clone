@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:uber/data/models/place_suggestion/places_suggestions.dart';
 
 part 'place_location_info.g.dart';
 
@@ -7,7 +8,9 @@ class PlaceLocationInfo {
   Result? result;
   String? status;
 
-  PlaceLocationInfo({this.result, this.status});
+  /// I put the value of [placeSubTextInfo] manually from suggestion Place Info
+  StructuredFormatting? placeSubTextInfo;
+  PlaceLocationInfo({this.result, this.status, this.placeSubTextInfo});
 
   factory PlaceLocationInfo.fromJson(Map<String, dynamic> json) =>
       _$PlaceLocationInfoFromJson(json);
