@@ -6,5 +6,5 @@ abstract class GoogleMapAPIsRepo {
   Future<ApiResult<PlacesSuggestions>> getPlacesSuggestions(
       {required String input});
   Future<ApiResult<List<PlaceLocationInfo>>> getPlacesLocation(
-      {required List<String> placesIds});
+      {required List<Prediction> places});
 }
