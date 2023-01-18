@@ -12,12 +12,17 @@ PlaceLocationInfo _$PlaceLocationInfoFromJson(Map<String, dynamic> json) =>
           ? null
           : Result.fromJson(json['result'] as Map<String, dynamic>),
       status: json['status'] as String?,
+      placeSubTextInfo: json['placeSubTextInfo'] == null
+          ? null
+          : StructuredFormatting.fromJson(
+              json['placeSubTextInfo'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$PlaceLocationInfoToJson(PlaceLocationInfo instance) =>
     <String, dynamic>{
       'result': instance.result,
       'status': instance.status,
+      'placeSubTextInfo': instance.placeSubTextInfo,
     };
 
 Result _$ResultFromJson(Map<String, dynamic> json) => Result(
