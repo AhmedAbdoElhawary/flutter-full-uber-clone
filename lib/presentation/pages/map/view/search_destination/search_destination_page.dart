@@ -121,7 +121,7 @@ class _GoogleMapBlocConsumer extends StatelessWidget {
     state.whenOrNull(
       placesLocationLoaded: (placesLocationInfo) {
         MapLogic mapLogic = Get.find(tag: '2');
-        mapLogic.goToThisPosition(placesLocationInfo);
+        mapLogic.goToThosePositions(placesLocationInfo);
       },
     );
   }
@@ -174,14 +174,14 @@ class _PlaceSuggestionsList extends StatelessWidget {
                     if (!textFieldsController.isStartAndEndComplete) return;
 
                     appearanceController.changeTheAppearing(disAppear: true);
-                    String toPlaceId =
-                        textFieldsController.whereTo.value?.placeId ?? "";
-                    String fromPlaceId =
-                        textFieldsController.whereFrom.value?.placeId ?? "";
+                    Prediction? toPlaceIdPrediction =
+                        textFieldsController.whereTo.value;
+                    Prediction? fromPlacePrediction =
+                        textFieldsController.whereFrom.value;
 
-                    if (toPlaceId.isNotEmpty && fromPlaceId.isNotEmpty) {
-                      List<String> placesIds = [fromPlaceId, toPlaceId];
-                      GoogleMapCubit.get(context).getPlaceLocation(placesIds);
+                    if (toPlaceIdPrediction ==null && fromPlacePrediction==null) {
+                      List<Prediction> places = [fromPlacePrediction!, toPlaceIdPrediction!];
+                      GoogleMapCubit.get(context).getPlaceLocation(places);
                     }
                   },
                   child: _CustomListTitle(
