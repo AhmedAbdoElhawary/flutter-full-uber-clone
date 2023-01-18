@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'place_direction.dart';
+part of 'places_direction.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PlaceDirection _$PlaceDirectionFromJson(Map<String, dynamic> json) =>
-    PlaceDirection(
+PlacesDirection _$PlacesDirectionFromJson(Map<String, dynamic> json) =>
+    PlacesDirection(
       geocodedWaypoints: (json['geocoded_waypoints'] as List<dynamic>?)
           ?.map((e) => GeocodedWaypoints.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -17,7 +17,7 @@ PlaceDirection _$PlaceDirectionFromJson(Map<String, dynamic> json) =>
       status: json['status'] as String?,
     );
 
-Map<String, dynamic> _$PlaceDirectionToJson(PlaceDirection instance) =>
+Map<String, dynamic> _$PlacesDirectionToJson(PlacesDirection instance) =>
     <String, dynamic>{
       'geocoded_waypoints': instance.geocodedWaypoints,
       'routes': instance.routes,
