@@ -41,6 +41,7 @@ class GoogleMapCubit extends Cubit<ResultState> {
     ApiResult<PlacesDirection> result = await _googleMapAPIsRepo
         .getPlacesDirection(startPoint: startPoint, endPoint: endPoint);
     result.when(
+
         success: (location) =>
             emit(ResultState.placesDirectionLoaded(location)),
         failure: (exception) => emit(ResultState.error(exception)));
