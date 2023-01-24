@@ -10,7 +10,8 @@ class PlaceLocationInfo {
 
   /// I put the value of [placeSubTextInfo] manually from suggestion Place Info
   StructuredFormatting? placeSubTextInfo;
-  PlaceLocationInfo({this.result, this.status, this.placeSubTextInfo});
+  String? placeId;
+  PlaceLocationInfo({this.result, this.status, this.placeSubTextInfo,this.placeId});
 
   factory PlaceLocationInfo.fromJson(Map<String, dynamic> json) =>
       _$PlaceLocationInfoFromJson(json);
