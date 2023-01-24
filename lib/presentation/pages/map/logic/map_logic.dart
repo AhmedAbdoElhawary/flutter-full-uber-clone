@@ -1,12 +1,14 @@
 import 'dart:async';
 import 'dart:math';
 
+import 'package:custom_marker/marker_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:uber/core/resources/strings_manager.dart';
 import 'package:uber/data/models/place_location_info/place_location_info.dart';
-import 'package:uber/data/models/place_suggestion/places_suggestions.dart';
+import 'package:uber/presentation/cubit/google_map_cubit/places_suggestions_cubit.dart';
 
 class _MiddleCameraPosition {
   double latPoint;
@@ -69,15 +71,28 @@ class MapLogic extends GetxController {
     update(["2"]);
   }
 
-  Future<void> goToThosePositions(List<PlaceLocationInfo> positions) async {
+  Future<void> preparePlacesDirection(
+      BuildContext context, List<PlaceLocationInfo> placesLocationInfo) async {
+    // TODO: start and end points only
+    Location? startLatLng = placesLocationInfo[0].result?.geometry?.location;
+    Location? endLatLng = placesLocationInfo[1].result?.geometry?.location;
+    if (startLatLng == null || endLatLng == null) return;
+    String startP = '${startLatLng.lat},${startLatLng.lng}';
+    String endP = '${endLatLng.lat},${endLatLng.lng}';
+    await GoogleMapCubit.get(context)
+        .getPlacesDirection(startPoint: startP, endPoint: endP);
+  }
+
+  Future<void> goToThosePositions(
+      BuildContext context, List<PlaceLocationInfo> positions) async {
     if (positions.length < 2) return;
     _MiddleCameraPosition? middleCameraPos =
         _getCenterPositionOfLocations(positions);
     if (middleCameraPos == null) return;
     CameraPosition newPos = _getCameraPosition(middleCameraPos);
+    _buildTravelPlacesMarkers(context, positions);
     final GoogleMapController controller = await mapController.value.future;
     await controller.animateCamera(CameraUpdate.newCameraPosition(newPos));
-    buildTravelPlacesMarkers(positions);
     update(["update"]);
   }
 
@@ -107,8 +122,8 @@ class MapLogic extends GetxController {
       Location? p = positions[i].result?.geometry?.location;
       if (p == null || p.lat == null || p.lng == null) return null;
 
-      latMediumPoint = p.lat!;
-      lngMediumPoint = p.lng!;
+      latMediumPoint += p.lat!;
+      lngMediumPoint += p.lng!;
 
       double abs = (p.lat! - p.lng!).abs();
 
@@ -140,29 +155,31 @@ class MapLogic extends GetxController {
     );
   }
 
-  Future<void> buildTravelPlacesMarkers(
-      List<PlaceLocationInfo> positions) async {
-    ImageConfiguration imageConf = const ImageConfiguration(size: Size(25, 25));
-    BitmapDescriptor startIcon = await BitmapDescriptor.fromAssetImage(
-        imageConf, 'assets/icons/circle.png');
-    BitmapDescriptor endIcon = await BitmapDescriptor.fromAssetImage(
-        imageConf, 'assets/icons/square.png');
+  Future<void> _buildTravelPlacesMarkers(
+      BuildContext context, List<PlaceLocationInfo> positions) async {
+    final BitmapDescriptor startIcon = await MarkerIcon.svgAsset(
+        assetName: 'assets/icons/circle.svg', context: context, size: 12);
 
+    final endIcon = await MarkerIcon.svgAsset(
+        assetName: 'assets/icons/square.svg', context: context, size: 12);
+
+    _buildMarkers(startIcon, endIcon, positions);
+  }
+
+  Future<void> _buildMarkers(BitmapDescriptor startIcon,
+      BitmapDescriptor endIcon, List<PlaceLocationInfo> positions) async {
     for (int i = 0; i < positions.length; i++) {
       PlaceLocationInfo position = positions[i];
       Location? p = position.result?.geometry?.location;
       if (p == null || p.lat == null || p.lng == null) return;
-      StructuredFormatting? placeSubDetails = position.placeSubTextInfo;
-      String errorText =
-          "there is something wrong with placeSubTextInfo of position";
-      String mainText = placeSubDetails?.mainText ?? errorText;
-      String secondaryText = placeSubDetails?.secondaryText ?? errorText;
+      String mainText =
+          position.placeSubTextInfo?.mainText ?? StringsManager.somethingWrong;
 
       Marker marker = Marker(
         position: LatLng(p.lat!, p.lng!),
         markerId: MarkerId("$i"),
         onTap: () {},
-        infoWindow: InfoWindow(title: "$mainText, $secondaryText"),
+        infoWindow: InfoWindow(title: mainText),
         icon: i == 0 ? startIcon : endIcon,
       );
 
