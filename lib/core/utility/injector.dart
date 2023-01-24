@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uber/core/utility/app_prefs.dart';
 import 'package:uber/data/data_sources/remote/api/google_map_apis.dart';
+import 'package:uber/data/data_sources/remote/api/google_map_apis_manual.dart';
 import 'package:uber/data/repositories_impl/firebase_auth_repo_impl.dart';
 import 'package:uber/data/repositories_impl/google_map_apis_repo_impl.dart';
 import 'package:uber/data/repositories_impl/personal_info_repo_impl.dart';
@@ -31,6 +32,9 @@ Future<void> initializeDependencies() async {
   injector.registerLazySingleton<GoogleMapAPIs>(
       () => GoogleMapAPIs(createAndSetupDio()));
 
+  injector.registerLazySingleton<GoogleMapAPIsManual>(
+      () => GoogleMapAPIsManual(createAndSetupDio()));
+
   /// =============================== Repository =========================================>
 
   // Firebase Auth Repository
@@ -47,7 +51,7 @@ Future<void> initializeDependencies() async {
 
   // personal info Repository
   injector.registerLazySingleton<GoogleMapAPIsRepo>(
-    () => GoogleMapAPIsRepoImpl(injector()),
+    () => GoogleMapAPIsRepoImpl(injector(), injector()),
   );
   // *
   /// ================================ Blocs ========================================>
@@ -84,6 +88,7 @@ Dio createAndSetupDio() {
     responseHeader: false,
     request: true,
     requestBody: true,
+
   ));
 
   return dio;

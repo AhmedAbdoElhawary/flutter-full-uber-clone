@@ -44,6 +44,7 @@ class StructuredFormatting {
   String? secondaryText;
 
   StructuredFormatting({this.mainText, this.secondaryText});
+
   factory StructuredFormatting.fromJson(Map<String, dynamic> json) =>
       _$StructuredFormattingFromJson(json);
 

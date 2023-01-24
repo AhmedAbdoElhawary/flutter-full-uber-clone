@@ -24,4 +24,5 @@ abstract class GoogleMapAPIs {
     @Query("key") final String apiKey = mapApiKey,
     @Query("sessiontoken") required String sessionToken,
   });
+
 }

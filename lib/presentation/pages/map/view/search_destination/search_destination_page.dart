@@ -119,9 +119,10 @@ class _GoogleMapBlocConsumer extends StatelessWidget {
 
   void listener(context, ResultState state) {
     state.whenOrNull(
-      placesLocationLoaded: (placesLocationInfo) {
+      placesLocationLoaded: (placesLocationInfo) async {
         MapLogic mapLogic = Get.find(tag: '2');
-        mapLogic.goToThosePositions(placesLocationInfo);
+        mapLogic.goToThosePositions(context, placesLocationInfo);
+        mapLogic.preparePlacesDirection(context, placesLocationInfo);
       },
     );
   }
@@ -152,6 +153,7 @@ class _GoogleMapBlocConsumer extends StatelessWidget {
 class _PlaceSuggestionsList extends StatelessWidget {
   const _PlaceSuggestionsList(this.placeInfo, {Key? key}) : super(key: key);
   final PlacesSuggestions placeInfo;
+
   @override
   Widget build(BuildContext context) {
     final SearchDestinationLogic textFieldsController = Get.find(tag: "1");
@@ -179,10 +181,13 @@ class _PlaceSuggestionsList extends StatelessWidget {
                     Prediction? fromPlacePrediction =
                         textFieldsController.whereFrom.value;
 
-                    if (toPlaceIdPrediction ==null && fromPlacePrediction==null) {
-                      List<Prediction> places = [fromPlacePrediction!, toPlaceIdPrediction!];
-                      GoogleMapCubit.get(context).getPlaceLocation(places);
-                    }
+                    if (toPlaceIdPrediction == null ||
+                        fromPlacePrediction == null) return;
+                    List<Prediction> places = [
+                      fromPlacePrediction,
+                      toPlaceIdPrediction
+                    ];
+                    GoogleMapCubit.get(context).getPlaceLocation(places);
                   },
                   child: _CustomListTitle(
                       text:

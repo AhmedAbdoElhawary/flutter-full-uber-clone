@@ -16,6 +16,7 @@ PlaceLocationInfo _$PlaceLocationInfoFromJson(Map<String, dynamic> json) =>
           ? null
           : StructuredFormatting.fromJson(
               json['placeSubTextInfo'] as Map<String, dynamic>),
+      placeId: json['placeId'] as String?,
     );
 
 Map<String, dynamic> _$PlaceLocationInfoToJson(PlaceLocationInfo instance) =>
@@ -23,6 +24,7 @@ Map<String, dynamic> _$PlaceLocationInfoToJson(PlaceLocationInfo instance) =>
       'result': instance.result,
       'status': instance.status,
       'placeSubTextInfo': instance.placeSubTextInfo,
+      'placeId': instance.placeId,
     };
 
 Result _$ResultFromJson(Map<String, dynamic> json) => Result(
