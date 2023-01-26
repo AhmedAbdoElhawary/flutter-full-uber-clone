@@ -34,7 +34,7 @@ class FirebaseAuthCubit extends Cubit<FirebaseAuthCubitState> {
     });
   }
 
-  Future<void> logOut(String mobilePhone) async {
+  Future<void> logOut() async {
     emit(AuthLoggingOut());
     await _firebaseAuthRepository.logOut().then((_) {
       emit(AuthLoggedOut());

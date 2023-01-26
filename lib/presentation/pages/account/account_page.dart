@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/core/resources/styles_manager.dart';
+import 'package:uber/presentation/cubit/firebaseAuthCubit/firebase_auth_cubit.dart';
+import 'package:uber/presentation/pages/register/register_page/view/register_page.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -184,12 +187,18 @@ class _StartCount extends StatelessWidget {
       ),
       child: Padding(
         padding: REdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        child: Row(
-          children: [
-            Icon(Icons.star, size: 17.r),
-            const RSizedBox(width: 5),
-            Text("5.0", style: getNormalStyle(fontSize: 17))
-          ],
+        child: GestureDetector(
+          onTap: () async {
+            await FirebaseAuthCubit.get(context).logOut();
+            Get.offAll(const RegisterPage());
+          },
+          child: Row(
+            children: [
+              Icon(Icons.star, size: 17.r),
+              const RSizedBox(width: 5),
+              Text("5.0", style: getNormalStyle(fontSize: 17))
+            ],
+          ),
         ),
       ),
     );

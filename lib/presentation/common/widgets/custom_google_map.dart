@@ -55,7 +55,7 @@ class _BuildGoogleMap extends StatelessWidget {
     try {
       mapControl.mapController.value.complete(controller);
     } catch (e) {
-      NullThrownError;
+      rethrow;
     }
   }
 
@@ -97,6 +97,9 @@ class _BuildGoogleMap extends StatelessWidget {
             myLocationEnabled: true,
             zoomControlsEnabled: false,
             myLocationButtonEnabled: false,
+            compassEnabled:false,
+            mapToolbarEnabled:false,
+            // tiltGesturesEnabled:false,
             initialCameraPosition:
                 mapControl.getMyCurrentLocationCameraPosition,
             onMapCreated: _onMapCreated,
