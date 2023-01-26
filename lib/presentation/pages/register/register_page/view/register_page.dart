@@ -114,7 +114,7 @@ class _ContinueWith extends StatelessWidget {
                 style: getMediumStyle(fontSize: 18),
               ),
             ],
-          )),
+          ),),
     );
   }
 }
