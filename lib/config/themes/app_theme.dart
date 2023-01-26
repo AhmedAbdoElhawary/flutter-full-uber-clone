@@ -9,28 +9,28 @@ class AppTheme {
     return ThemeData(
       primaryColor: ColorManager.white,
       primaryColorLight: ColorManager.veryLightGrey,
-      primarySwatch: Colors.grey,
       hintColor: ColorManager.lowOpacityGrey,
       shadowColor: ColorManager.veryLowOpacityGrey,
-      bottomAppBarColor: ColorManager.black26,
       focusColor: ColorManager.black,
       disabledColor: ColorManager.black54,
       dialogBackgroundColor: ColorManager.black87,
       hoverColor: ColorManager.black45,
       indicatorColor: ColorManager.black38,
       dividerColor: ColorManager.black12,
-      backgroundColor: ColorManager.lightBlack,
       scaffoldBackgroundColor: ColorManager.white,
       iconTheme: const IconThemeData(color: ColorManager.black),
       elevatedButtonTheme: elevatedButtonThemeData(),
       chipTheme:
           const ChipThemeData(backgroundColor: ColorManager.veryLowOpacityGrey),
-      errorColor: ColorManager.black,
       canvasColor: ColorManager.transparent,
       splashColor: ColorManager.white,
       appBarTheme: appBarTheme(),
       tabBarTheme: tabBarTheme(),
       textTheme: textTheme(),
+      bottomAppBarTheme: const BottomAppBarTheme(color: ColorManager.black26),
+      colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey)
+          .copyWith(background: ColorManager.lightBlack)
+          .copyWith(error: ColorManager.black),
     );
   }
 
@@ -42,8 +42,7 @@ class AppTheme {
         ),
         minimumSize:
             MaterialStateProperty.all<Size>(const Size(double.infinity, 0)),
-        padding: MaterialStateProperty.all<REdgeInsets>(
-             REdgeInsets.all(13)),
+        padding: MaterialStateProperty.all<REdgeInsets>(REdgeInsets.all(13)),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             const RoundedRectangleBorder(borderRadius: BorderRadius.zero)),
       ),
@@ -51,10 +50,10 @@ class AppTheme {
   }
 
   static TabBarTheme tabBarTheme() {
-    return  TabBarTheme(
+    return TabBarTheme(
       indicatorSize: TabBarIndicatorSize.label,
       labelPadding: REdgeInsets.all(0),
-      indicator:const BoxDecoration(
+      indicator: const BoxDecoration(
         border: Border(
           bottom: BorderSide(color: ColorManager.black54, width: 1.5),
         ),
@@ -93,7 +92,7 @@ class AppTheme {
     return OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         textStyle: getMediumStyle(fontSize: 17),
-        padding:  REdgeInsets.symmetric(horizontal: 20),
+        padding: REdgeInsets.symmetric(horizontal: 20),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.0)),
         side: const BorderSide(width: 1, color: ColorManager.black45),
       ),
@@ -104,7 +103,6 @@ class AppTheme {
     return ThemeData(
       primaryColor: ColorManager.black,
       primaryColorLight: ColorManager.black54,
-      primarySwatch: Colors.grey,
       hintColor: ColorManager.darkGray,
       shadowColor: ColorManager.darkGray,
       focusColor: ColorManager.white,
@@ -112,12 +110,9 @@ class AppTheme {
       hoverColor: ColorManager.grey,
       indicatorColor: ColorManager.grey,
       dividerColor: ColorManager.grey,
-      bottomAppBarColor: ColorManager.grey,
       iconTheme: const IconThemeData(color: ColorManager.white),
       chipTheme:
           const ChipThemeData(backgroundColor: ColorManager.lightDarkGray),
-      backgroundColor: ColorManager.darkGray,
-      errorColor: ColorManager.grey,
       disabledColor: ColorManager.white,
       scaffoldBackgroundColor: ColorManager.black,
       canvasColor: ColorManager.transparent,
@@ -142,6 +137,10 @@ class AppTheme {
         titleSmall: getNormalStyle(color: ColorManager.darkGray),
         titleMedium: getNormalStyle(color: ColorManager.darkGray),
       ),
+      bottomAppBarTheme: const BottomAppBarTheme(color: ColorManager.grey),
+      colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey)
+          .copyWith(background: ColorManager.darkGray)
+          .copyWith(error: ColorManager.grey),
     );
   }
 }
