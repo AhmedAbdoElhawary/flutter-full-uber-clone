@@ -8,7 +8,6 @@ import 'package:uber/core/functions/toast_show.dart';
 import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/core/resources/styles_manager.dart';
 import 'package:uber/data/models/place_suggestion/places_suggestions.dart';
-import 'package:uber/presentation/common/widgets/custom_elevated_button.dart';
 import 'package:uber/presentation/cubit/google_map_cubit/places_suggestions_cubit.dart';
 import 'package:uber/presentation/cubit/google_map_cubit/result_state.dart';
 import 'package:uber/presentation/pages/map/logic/map_logic.dart';
@@ -31,21 +30,10 @@ class DoneButtonWithLocationIcon extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            const Align(
+          children: const [
+            Align(
                 alignment: Alignment.centerRight,
-                child: MyLocationIcon(tag: "2")),
-            const RSizedBox(height: 20),
-            CustomElevatedButton(
-              onPressed: () {},
-              backgroundColor: ColorManager.black,
-              withoutPadding: true,
-              circularRadius: 0,
-              child: Text(
-                "Done",
-                style: getNormalStyle(color: ColorManager.white, fontSize: 20),
-              ),
-            )
+                child: MyLocationIcon(tag: "2"))
           ],
         ),
       ),
