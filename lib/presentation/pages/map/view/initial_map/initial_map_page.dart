@@ -92,6 +92,7 @@ class MapDisplay extends StatelessWidget {
                 child: const MyLocationIcon(tag: "2"),
               ))
         ]else...[
+
           const DoneButtonWithLocationIcon(),
           const Align(alignment: Alignment.topCenter, child: ResultsOfSearchText()),
         ],
