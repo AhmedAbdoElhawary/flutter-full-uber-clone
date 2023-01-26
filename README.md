@@ -1,1 +1,1 @@
-# Still in inital stage
+# Still in initial stage
