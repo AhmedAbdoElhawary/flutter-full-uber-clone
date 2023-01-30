@@ -4,9 +4,9 @@ const Map<String, String> en = {
   "registerWithFacebook": "Register with facebook",
 
   /// --------------------------------------------------->
-  "welcome":"Welcome",
-  "confirmEmail":"Confirm email",
-  "city":"City",
+  "welcome": "Welcome",
+  "confirmEmail": "Confirm email",
+  "city": "City",
   "less": "less",
   "reel": "Reel",
   "like": "Like",
