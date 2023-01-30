@@ -12,8 +12,8 @@ class ResultState with _$ResultState {
 
   const factory ResultState.loading() = Loading;
 
-  const factory ResultState.placesSuggestionsLoaded(PlacesSuggestions placeInfo) =
-      PlacesSuggestionsLoaded;
+  const factory ResultState.placesSuggestionsLoaded(
+      PlacesSuggestions placeInfo) = PlacesSuggestionsLoaded;
 
   const factory ResultState.placesLocationLoaded(
       List<PlaceLocationInfo> placesLocationInfo) = PlacesLocationLoaded;
