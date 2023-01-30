@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:uber/core/utility/constant.dart';
 
 class AppearanceOfSearchListLogic extends GetxController {
-
   final RxDouble _positionInTop = 130.h.obs;
   final RxDouble _startTapPoint = 0.0.obs;
 
@@ -44,4 +43,3 @@ class AppearanceOfSearchListLogic extends GetxController {
   bool get disAppearTheResult => sizeOfScreen.height == getPositionInTop;
   double get getPositionInTop => _positionInTop.value;
 }
-
