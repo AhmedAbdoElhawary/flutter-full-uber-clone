@@ -7,10 +7,11 @@ import 'package:uber/core/functions/error_model.dart';
 part 'network_exceptions.freezed.dart';
 
 @freezed
- class NetworkExceptions with _$NetworkExceptions {
+class NetworkExceptions with _$NetworkExceptions {
   const factory NetworkExceptions.requestCancelled() = RequestCancelled;
 
-  const factory NetworkExceptions.unauthorizedRequest(String reason) = UnauthorizedRequest;
+  const factory NetworkExceptions.unauthorizedRequest(String reason) =
+      UnauthorizedRequest;
 
   const factory NetworkExceptions.badRequest() = BadRequest;
 
@@ -24,7 +25,8 @@ part 'network_exceptions.freezed.dart';
 
   const factory NetworkExceptions.sendTimeout() = SendTimeout;
 
-  const factory NetworkExceptions.unProcessableEntity(String reason) = UnprocessableEntity;
+  const factory NetworkExceptions.unProcessableEntity(String reason) =
+      UnprocessableEntity;
 
   const factory NetworkExceptions.conflict() = Conflict;
 
@@ -45,8 +47,13 @@ part 'network_exceptions.freezed.dart';
   const factory NetworkExceptions.unexpectedError() = UnexpectedError;
 
   static NetworkExceptions handleResponse(Response? response) {
-    List<ErrorModel> listOfErrors = List.from(response?.data).map((e) => ErrorModel.fromJson(e)).toList();
-    String allErrors = listOfErrors.map((e) => "${e.field} : ${e.message}  ").toString().replaceAll("(", "").replaceAll(")", "");
+    List<ErrorModel> listOfErrors =
+        List.from(response?.data).map((e) => ErrorModel.fromJson(e)).toList();
+    String allErrors = listOfErrors
+        .map((e) => "${e.field} : ${e.message}  ")
+        .toString()
+        .replaceAll("(", "")
+        .replaceAll(")", "");
     int statusCode = response?.statusCode ?? 0;
     switch (statusCode) {
       case 400:
@@ -86,13 +93,15 @@ part 'network_exceptions.freezed.dart';
               networkExceptions = const NetworkExceptions.requestTimeout();
               break;
             case DioErrorType.other:
-              networkExceptions = const NetworkExceptions.noInternetConnection();
+              networkExceptions =
+                  const NetworkExceptions.noInternetConnection();
               break;
             case DioErrorType.receiveTimeout:
               networkExceptions = const NetworkExceptions.sendTimeout();
               break;
             case DioErrorType.response:
-              networkExceptions = NetworkExceptions.handleResponse(error.response);
+              networkExceptions =
+                  NetworkExceptions.handleResponse(error.response);
               break;
             case DioErrorType.sendTimeout:
               networkExceptions = const NetworkExceptions.sendTimeout();
