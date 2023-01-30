@@ -25,7 +25,7 @@ class PersonalInfoCubitCubit extends Cubit<PersonalInfoCubitState> {
 
   Future<void> createNewUser(PersonalInfo userInfo) async {
     emit(UserCreationLoading());
-    await _personalInfoRepository.createNewUser( userInfo).then((_) {
+    await _personalInfoRepository.createNewUser(userInfo).then((_) {
       emit(UserCreationLoaded(userInfo));
     }).catchError((e) {
       emit(PersonalInfoFailed(e.toString()));
