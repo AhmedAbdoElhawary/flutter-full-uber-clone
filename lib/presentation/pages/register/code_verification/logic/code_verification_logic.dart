@@ -16,13 +16,13 @@ class CodeVerificationLogic extends GetxController {
   onPressedVerify(BuildContext context) async {
     if (enableNextButton) {
       await FirebaseAuthCubit.get(context).submitOTP(otpCode.value);
-      otpCode.value="";
+      otpCode.value = "";
     }
   }
+
   nextButtonListener(context, state) {
     if (state is OTPSubmitted) {
-      Go.to(GetPersonalInfo(
-          userId: state.userUid, phoneNumber: mobilePhone));
+      Go.to(GetPersonalInfo(userId: state.userUid, phoneNumber: mobilePhone));
     } else if (state is CubitAuthFailed) {
       ToastShow.reformatToast(context, state.error);
     }
