@@ -7,10 +7,7 @@ class FireStoreUser {
       FirebaseFirestore.instance.collection('users');
 
   static Future<void> createNewUser(PersonalInfo userInfo) async {
-    await _fireStoreUserCollection
-        .doc(userInfo.userId)
-        .set(userInfo.toMap());
-
+    await _fireStoreUserCollection.doc(userInfo.userId).set(userInfo.toMap());
   }
 
   static Future<PersonalInfo?> getUserInfo(String userId) async {
