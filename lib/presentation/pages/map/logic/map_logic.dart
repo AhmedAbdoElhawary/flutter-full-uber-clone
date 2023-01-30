@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:custom_marker/marker_icon.dart';
 import 'package:flutter/material.dart';
@@ -13,26 +12,7 @@ import 'package:uber/presentation/cubit/google_map_cubit/places_suggestions_cubi
 class _MiddleCameraPosition {
   double latPoint;
   double lngPoint;
-  double zoom;
-  _MiddleCameraPosition({
-    required this.latPoint,
-    required this.lngPoint,
-    this.zoom = 25.0,
-  });
-}
-
-class _MiddleLatLngDetails {
-  double latPoint;
-  double lngPoint;
-  double maxLatPoint;
-  double minLatPoint;
-
-  _MiddleLatLngDetails({
-    required this.latPoint,
-    required this.lngPoint,
-    required this.minLatPoint,
-    required this.maxLatPoint,
-  });
+  _MiddleCameraPosition({required this.latPoint, required this.lngPoint});
 }
 
 class MapLogic extends GetxController {
@@ -98,58 +78,17 @@ class MapLogic extends GetxController {
 
   _MiddleCameraPosition? _getCenterPositionOfLocations(
       List<PlaceLocationInfo> positions) {
-    _MiddleLatLngDetails? middleLatLngPoints =
-        _getMiddleOfLatLngPoints(positions);
-    if (middleLatLngPoints == null) return null;
+    Location? p = positions[1].result?.geometry?.location;
 
-    double zoomOut = _calZoomOutOfThisPosition(middleLatLngPoints);
-    return _MiddleCameraPosition(
-      lngPoint: middleLatLngPoints.lngPoint,
-      latPoint: middleLatLngPoints.latPoint,
-      zoom: zoomOut,
-    );
-  }
+    if (p == null || p.lat == null || p.lng == null) return null;
 
-  _MiddleLatLngDetails? _getMiddleOfLatLngPoints(
-      List<PlaceLocationInfo> positions) {
-    double latMediumPoint = 0,
-        lngMediumPoint = 0,
-        maxLatPoint = 0,
-        minLatPoint = double.maxFinite;
-
-    int i = 0;
-    for (; i < positions.length; i++) {
-      Location? p = positions[i].result?.geometry?.location;
-      if (p == null || p.lat == null || p.lng == null) return null;
-
-      latMediumPoint += p.lat!;
-      lngMediumPoint += p.lng!;
-
-      double abs = (p.lat! - p.lng!).abs();
-
-      minLatPoint = min(minLatPoint, abs);
-      maxLatPoint = max(maxLatPoint, abs);
-    }
-
-    return _MiddleLatLngDetails(
-      latPoint: latMediumPoint / i,
-      lngPoint: lngMediumPoint / i,
-      maxLatPoint: maxLatPoint,
-      minLatPoint: minLatPoint,
-    );
-  }
-
-  double _calZoomOutOfThisPosition(_MiddleLatLngDetails latLngDetails) {
-    // double minLatPoint = latLngDetails.minLatPoint;
-    // double maxLatPoint = latLngDetails.maxLatPoint;
-    // double def = minLatPoint - maxLatPoint;
-    return 25.0;
+    return _MiddleCameraPosition(lngPoint: p.lng!, latPoint: p.lat!);
   }
 
   CameraPosition _getCameraPosition(_MiddleCameraPosition pos) {
     return CameraPosition(
       target: LatLng(pos.latPoint, pos.lngPoint),
-      zoom: pos.zoom,
+      zoom: 45,
       bearing: 0.0,
       tilt: 0.0,
     );
@@ -158,12 +97,14 @@ class MapLogic extends GetxController {
   Future<void> _buildTravelPlacesMarkers(
       BuildContext context, List<PlaceLocationInfo> positions) async {
     final BitmapDescriptor startIcon = await MarkerIcon.svgAsset(
-        assetName: 'assets/icons/circle.svg', context: context, size: 12);
+        assetName: 'assets/icons/circle.svg', context: context, size: 15);
 
-    final endIcon = await MarkerIcon.svgAsset(
-        assetName: 'assets/icons/square.svg', context: context, size: 12);
+    if (context.mounted) {
+      final BitmapDescriptor endIcon = await MarkerIcon.svgAsset(
+          assetName: 'assets/icons/square.svg', context: context, size: 15);
 
-    _buildMarkers(startIcon, endIcon, positions);
+      _buildMarkers(startIcon, endIcon, positions);
+    }
   }
 
   Future<void> _buildMarkers(BitmapDescriptor startIcon,
