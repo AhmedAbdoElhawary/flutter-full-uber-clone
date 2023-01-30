@@ -6,6 +6,7 @@ import 'package:uber/config/routes/route_app.dart';
 import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/presentation/common/widgets/custom_circulars_progress.dart';
 import 'package:uber/presentation/common/widgets/custom_google_map.dart';
+import 'package:uber/presentation/pages/home/home_page.dart';
 import 'package:uber/presentation/pages/map/logic/map_logic.dart';
 import 'package:uber/presentation/pages/map/view/search_destination/search_destination_page.dart';
 import 'package:uber/presentation/pages/map/widgets/map_widgets/circle_with_box_shadow.dart';
@@ -43,13 +44,13 @@ class MapScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Obx(
-              () => Stack(
+          () => Stack(
             fit: StackFit.expand,
             children: [
               mapControl.getCurrentPosition != null
-                  ? buildScreen(mapControl,initialMap)
+                  ? buildScreen(mapControl, initialMap)
                   : const Center(
-                  child: ThineCircularProgress(color: ColorManager.black)),
+                      child: ThineCircularProgress(color: ColorManager.black)),
               if (initialMap) const _BackButton(),
             ],
           ),
@@ -58,23 +59,23 @@ class MapScreen extends StatelessWidget {
     );
   }
 
-  Widget buildScreen(MapLogic mapControl,bool initialMap) {
-    if(initialMap){
+  Widget buildScreen(MapLogic mapControl, bool initialMap) {
+    if (initialMap) {
       return Column(
         children: [
           Flexible(child: MapDisplay(mapControl: mapControl)),
           _SearchContainer(mapControl),
         ],
       );
-    }else{
-      return MapDisplay(mapControl: mapControl,initialMap: false);
+    } else {
+      return MapDisplay(mapControl: mapControl, initialMap: false);
     }
-
   }
 }
 
 class MapDisplay extends StatelessWidget {
-  const MapDisplay({Key? key, required this.mapControl,this.initialMap=true}) : super(key: key);
+  const MapDisplay({Key? key, required this.mapControl, this.initialMap = true})
+      : super(key: key);
 
   final MapLogic mapControl;
   final bool initialMap;
@@ -84,19 +85,18 @@ class MapDisplay extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         const CustomGoogleMap(tag: '2', id: "update"),
-        if(initialMap)...[
+        if (initialMap) ...[
           Align(
               alignment: Alignment.bottomRight,
               child: Padding(
                 padding: REdgeInsets.symmetric(vertical: 35, horizontal: 15),
                 child: const MyLocationIcon(tag: "2"),
               ))
-        ]else...[
-
+        ] else ...[
           const DoneButtonWithLocationIcon(),
-          const Align(alignment: Alignment.topCenter, child: ResultsOfSearchText()),
+          const Align(
+              alignment: Alignment.topCenter, child: ResultsOfSearchText()),
         ],
-
       ],
     );
   }
@@ -151,7 +151,7 @@ class _BackButton extends StatelessWidget {
       child: Padding(
         padding: REdgeInsets.symmetric(vertical: 35, horizontal: 15),
         child: GestureDetector(
-          onTap: () => Go.back(),
+          onTap: () => Go.offAll(const HomePage()),
           child: CircleWithBoxShadow(child: Icon(Icons.arrow_back, size: 25.r)),
         ),
       ),
