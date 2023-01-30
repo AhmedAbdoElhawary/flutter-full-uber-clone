@@ -19,7 +19,8 @@ class CompleteUserInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CompleteUserController controller= Get.put(CompleteUserController(userId: userId, phoneNumber: phoneNumber));
+    CompleteUserController controller = Get.put(
+        CompleteUserController(userId: userId, phoneNumber: phoneNumber));
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SafeArea(
@@ -64,7 +65,7 @@ class CompleteUserInfoPage extends StatelessWidget {
                         },
                         child: Icon(Icons.arrow_back, size: 30.r)),
                     const Spacer(),
-                    _buildNextButton(context,controller),
+                    _buildNextButton(context, controller),
                   ],
                 ),
               )
@@ -75,16 +76,17 @@ class CompleteUserInfoPage extends StatelessWidget {
     );
   }
 
-  Widget _buildNextButton(BuildContext context, CompleteUserController controller) {
+  Widget _buildNextButton(
+      BuildContext context, CompleteUserController controller) {
     return BlocListener<PersonalInfoCubitCubit, PersonalInfoCubitState>(
       listenWhen: (previous, current) => previous != current,
       listener: controller.nextButtonListener,
-      child: Obx(()=>NextButton(
-        enableButton: controller.isNextButtonEnabled,
-        replaceWithLoadingIndicator: controller.isLoading,
-        onPressed: () async => await controller.onPressedNextButton(context),
-      )
-      ),
+      child: Obx(() => NextButton(
+            enableButton: controller.isNextButtonEnabled,
+            replaceWithLoadingIndicator: controller.isLoading,
+            onPressed: () async =>
+                await controller.onPressedNextButton(context),
+          )),
     );
   }
 }
