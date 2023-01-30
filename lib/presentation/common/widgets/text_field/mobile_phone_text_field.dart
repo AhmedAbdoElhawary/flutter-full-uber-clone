@@ -31,7 +31,7 @@ class _MobilePhoneTextFieldState extends State<MobilePhoneTextField> {
 
   Padding prefixIcon() {
     return Padding(
-      padding:  REdgeInsets.only(bottom: 1.0, right: 5, left: 15),
+      padding: REdgeInsets.only(bottom: 1.0, right: 5, left: 15),
       child: Text("+20",
           style: getMediumStyle(color: ColorManager.black, fontSize: 16)),
     );
