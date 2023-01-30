@@ -89,7 +89,7 @@ class CompleteUserController extends GetxController {
 
   goBackToRegisterPage(BuildContext context, PersonalInfoFailed state) {
     ToastShow.reformatToast(context, state.error);
-    Go.offAll( const RegisterPage());
+    Go.offAll(const RegisterPage());
   }
 
   /// ------------------->
