@@ -17,7 +17,8 @@ class CodeVerificationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CodeVerificationLogic controller= Get.put(CodeVerificationLogic(mobilePhone));
+    CodeVerificationLogic controller =
+        Get.put(CodeVerificationLogic(mobilePhone));
     return Scaffold(
       body: SafeArea(
         child: Padding(
