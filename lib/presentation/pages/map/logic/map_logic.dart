@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uber/core/resources/strings_manager.dart';
 import 'package:uber/data/models/place_location_info/place_location_info.dart';
+import 'package:uber/data/models/places_direction/places_direction.dart';
 import 'package:uber/presentation/cubit/google_map_cubit/places_suggestions_cubit.dart';
 
 class _MiddleCameraPosition {
@@ -21,6 +22,7 @@ class MapLogic extends GetxController {
   RxBool showLocationIcon = false.obs;
   Rx<Set<Marker>> travelMarkers = Rx<Set<Marker>>({});
   RxBool showSearchDestinationWidgets = false.obs;
+  final Rx<PlacesDirection?> pointsDirection = Rxn<PlacesDirection?>();
 
   Rx<CameraPosition> get _myCurrentLocationCameraPosition => CameraPosition(
         bearing: 0.0,
