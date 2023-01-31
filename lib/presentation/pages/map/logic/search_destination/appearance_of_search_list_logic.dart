@@ -48,6 +48,11 @@ class AppearanceOfSearchListLogic extends GetxController {
     _startTapPoint.value = details.position.dy;
   }
 
+  void stepDownRidersMenu() {
+    draggableScrollableController.value.animateTo(0,
+        duration: const Duration(milliseconds: 300), curve: Curves.bounceInOut);
+  }
+
   double _additionSpace(Offset position) => position.dy - _startTapPoint.value;
 
   void showRidersMenu({bool appear = true}) {
