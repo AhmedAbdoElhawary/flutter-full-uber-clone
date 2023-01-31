@@ -89,7 +89,7 @@ Total : 114 files,  -3107 codes, -417 comments, -592 blanks, all -4116 lines
 | [lib/presentation/pages/map/logic/search_destination/search_destination_logic.dart](/lib/presentation/pages/map/logic/search_destination/search_destination_logic.dart) | Dart | 25 | 0 | 4 | 29 |
 | [lib/presentation/pages/map/view/initial_map/initial_map_page.dart](/lib/presentation/pages/map/view/initial_map/initial_map_page.dart) | Dart | 119 | 0 | 11 | 130 |
 | [lib/presentation/pages/map/view/map_page.dart](/lib/presentation/pages/map/view/map_page.dart) | Dart | -130 | -15 | -13 | -158 |
-| [lib/presentation/pages/map/view/search_destination/search_destination_page.dart](/lib/presentation/pages/map/view/search_destination/search_destination_page.dart) | Dart | 245 | 1 | 13 | 259 |
+| [lib/presentation/pages/map/view/search_destination/search_destination_page.dart](/lib/presentation/pages/map/widgets/map_widgets/results_of_search_text.dart) | Dart | 245 | 1 | 13 | 259 |
 | [lib/presentation/pages/map/widgets/map_widgets/circle_with_box_shadow.dart](/lib/presentation/pages/map/widgets/map_widgets/circle_with_box_shadow.dart) | Dart | 22 | 0 | 4 | 26 |
 | [lib/presentation/pages/map/widgets/map_widgets/location_icon.dart](/lib/presentation/pages/map/widgets/map_widgets/location_icon.dart) | Dart | 69 | 0 | 10 | 79 |
 | [lib/presentation/pages/map/widgets/search_text_field.dart](/lib/presentation/pages/map/widgets/search_text_field.dart) | Dart | 31 | 0 | 3 | 34 |
