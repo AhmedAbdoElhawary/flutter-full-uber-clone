@@ -24,7 +24,8 @@ class CustomOutlinedButton extends StatelessWidget {
 }
 
 ButtonStyle outlinedStyle() {
-  return OutlinedButton.styleFrom(fixedSize: Size(300.w,45.h) ,
+  return OutlinedButton.styleFrom(
+    fixedSize: Size(300.w, 45.h),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(30.0.r),
     ),

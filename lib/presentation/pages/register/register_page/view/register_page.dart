@@ -101,20 +101,21 @@ class _ContinueWith extends StatelessWidget {
     return Padding(
       padding: REdgeInsets.symmetric(vertical: 5.0),
       child: CustomElevatedButton(
-          withoutPadding: true,
-          onPressed: onPressed,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, size: 30.r),
-              const RSizedBox(width: 5),
-              Text(
-                "Continue with $text",
-                style: getMediumStyle(fontSize: 18),
-              ),
-            ],
-          ),),
+        withoutPadding: true,
+        onPressed: onPressed,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 30.r),
+            const RSizedBox(width: 5),
+            Text(
+              "Continue with $text",
+              style: getMediumStyle(fontSize: 18),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

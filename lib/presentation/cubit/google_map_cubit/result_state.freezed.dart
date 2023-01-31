@@ -873,6 +873,7 @@ class _$PlacesDirectionLoaded implements PlacesDirectionLoaded {
   }
 }
 
+
 abstract class PlacesDirectionLoaded implements ResultState {
   const factory PlacesDirectionLoaded(
       final PlacesDirection placesLocationInfo) = _$PlacesDirectionLoaded;

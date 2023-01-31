@@ -16,6 +16,7 @@ class PersonalInfoLoaded extends PersonalInfoCubitState {
 
   const PersonalInfoLoaded(this.personalInfo);
 }
+
 class UserCreationLoading extends PersonalInfoCubitState {}
 
 class UserCreationLoaded extends PersonalInfoCubitState {
@@ -23,6 +24,7 @@ class UserCreationLoaded extends PersonalInfoCubitState {
 
   const UserCreationLoaded(this.personalInfo);
 }
+
 class PersonalInfoFailed extends PersonalInfoCubitState {
   final String error;
   const PersonalInfoFailed(this.error);

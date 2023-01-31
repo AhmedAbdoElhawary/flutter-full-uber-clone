@@ -34,8 +34,8 @@ class _CustomRegisterButtonState extends State<CustomRegisterButton> {
         padding: REdgeInsets.symmetric(
             horizontal: 20, vertical: widget.isThatSignIn ? 0 : 20),
         child: Container(
-            margin:  REdgeInsetsDirectional.all(3.0),
-            padding:  REdgeInsetsDirectional.all(15.0),
+            margin: REdgeInsetsDirectional.all(3.0),
+            padding: REdgeInsetsDirectional.all(15.0),
             width: double.infinity,
             decoration: containerStyle(),
             child: widget.isItDone ? textOfButton() : circularProgress()),
@@ -45,7 +45,7 @@ class _CustomRegisterButtonState extends State<CustomRegisterButton> {
 
   Padding textOfButton() {
     return Padding(
-      padding:  REdgeInsetsDirectional.all(1.5),
+      padding: REdgeInsetsDirectional.all(1.5),
       child: Center(
         child: Text(
           widget.nameOfButton,
@@ -56,7 +56,7 @@ class _CustomRegisterButtonState extends State<CustomRegisterButton> {
   }
 
   Widget circularProgress() {
-    return  Center(
+    return Center(
       child: RSizedBox(
           height: 20,
           width: 20,

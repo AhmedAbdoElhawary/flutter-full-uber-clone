@@ -15,9 +15,9 @@ class _ActivityPageState extends State<ActivityPage> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding:  REdgeInsets.all(15.0),
+          padding: REdgeInsets.all(15.0),
           child: Container(
-            constraints:  BoxConstraints(maxHeight: 100.h),
+            constraints: BoxConstraints(maxHeight: 100.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

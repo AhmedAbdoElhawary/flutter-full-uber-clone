@@ -7,7 +7,8 @@ import 'package:get/get.dart';
 class Go {
   static to(Widget page) => Get.to(page, transition: Transition.rightToLeft);
 
-  static offAll(Widget page) => Get.offAll(page, transition: Transition.rightToLeft);
+  static offAll(Widget page) =>
+      Get.offAll(page, transition: Transition.rightToLeft);
 
   static back() => Get.back();
 }

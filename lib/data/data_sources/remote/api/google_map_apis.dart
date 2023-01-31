@@ -17,12 +17,10 @@ abstract class GoogleMapAPIs {
     @Query("sessiontoken") required String sessionToken,
   });
 
-
   @GET("details/json?fields=geometry")
   Future<PlaceLocationInfo> getPlacesLocation({
     @Query("place_id") required String placeId,
     @Query("key") final String apiKey = mapApiKey,
     @Query("sessiontoken") required String sessionToken,
   });
-
 }

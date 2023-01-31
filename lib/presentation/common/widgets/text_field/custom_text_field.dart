@@ -42,8 +42,7 @@ class CustomTextField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(7.0.r),
             borderSide: BorderSide(color: ColorManager.black, width: 2.w)),
-        contentPadding:
-             REdgeInsets.symmetric(horizontal: 10, vertical: 15).r,
+        contentPadding: REdgeInsets.symmetric(horizontal: 10, vertical: 15).r,
       ),
     );
   }

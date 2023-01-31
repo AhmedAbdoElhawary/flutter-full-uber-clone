@@ -11,7 +11,7 @@ import 'package:uuid/uuid.dart';
 class GoogleMapAPIsRepoImpl implements GoogleMapAPIsRepo {
   final GoogleMapAPIs _googleMapAPIs;
   final GoogleMapAPIsManual _googleMapAPIsManual;
-  GoogleMapAPIsRepoImpl(this._googleMapAPIs,this._googleMapAPIsManual);
+  GoogleMapAPIsRepoImpl(this._googleMapAPIs, this._googleMapAPIsManual);
 
   @override
   Future<ApiResult<PlacesSuggestions>> getPlacesSuggestions(
@@ -58,5 +58,4 @@ class GoogleMapAPIsRepoImpl implements GoogleMapAPIsRepo {
       return ApiResult.failure(NetworkExceptions.getDioException(e));
     }
   }
-
 }

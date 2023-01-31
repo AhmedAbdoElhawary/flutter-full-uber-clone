@@ -4,9 +4,28 @@ import 'package:get/get.dart';
 import 'package:uber/core/utility/constant.dart';
 
 class AppearanceOfSearchListLogic extends GetxController {
-
   final RxDouble _positionInTop = 130.h.obs;
   final RxDouble _startTapPoint = 0.0.obs;
+  final RxBool _displayRidersMenu = false.obs;
+  final draggableScrollableController = DraggableScrollableController().obs;
+  final Rx<double> _opacityOfAppBar = 0.0.obs;
+  final Rx<Color> colorOfAppBar = Colors.black.withOpacity(0).obs;
+
+  @override
+  void onInit() {
+    _animateColorOfAppBar();
+    super.onInit();
+  }
+
+  _animateColorOfAppBar() {
+    draggableScrollableController.value.addListener(() {
+      double pixels = draggableScrollableController.value.pixels;
+      double opacity = ((pixels - 350) / 405).abs();
+      if (opacity > 1) opacity = 1;
+      _opacityOfAppBar.value = opacity;
+      colorOfAppBar.value = Paint().color = Colors.black.withOpacity(opacity);
+    });
+  }
 
   /// taping update
   void onListPointerMove(PointerMoveEvent details, BuildContext context) {
@@ -21,7 +40,7 @@ class AppearanceOfSearchListLogic extends GetxController {
   void onListPointerUp(PointerUpEvent details) {
     bool appear = _additionSpace(details.position) < 100;
     _positionInTop.value = 130.h;
-    changeTheAppearing(disAppear: !appear);
+    showTheFlyingSuggestionsList(appear: appear);
   }
 
   /// taping start
@@ -31,8 +50,14 @@ class AppearanceOfSearchListLogic extends GetxController {
 
   double _additionSpace(Offset position) => position.dy - _startTapPoint.value;
 
-  void changeTheAppearing({required bool disAppear}) {
-    _positionInTop.value = disAppear ? sizeOfScreen.height : 130.h;
+  void showRidersMenu({bool appear = true}) {
+    _displayRidersMenu.value = appear;
+    showTheFlyingSuggestionsList(appear: !appear);
+    update(["update"]);
+  }
+
+  void showTheFlyingSuggestionsList({bool appear = true}) {
+    _positionInTop.value = appear ? 130.h : sizeOfScreen.height;
     update(["pointer"]);
   }
 
@@ -43,5 +68,6 @@ class AppearanceOfSearchListLogic extends GetxController {
 
   bool get disAppearTheResult => sizeOfScreen.height == getPositionInTop;
   double get getPositionInTop => _positionInTop.value;
+  double get getOpacityOfAppBar => _opacityOfAppBar.value;
+  bool get getDisplayRidersMenu => _displayRidersMenu.value;
 }
-

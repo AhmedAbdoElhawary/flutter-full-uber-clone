@@ -13,33 +13,7 @@ import 'package:uber/presentation/cubit/google_map_cubit/result_state.dart';
 import 'package:uber/presentation/pages/map/logic/map_logic.dart';
 import 'package:uber/presentation/pages/map/logic/search_destination/appearance_of_search_list_logic.dart';
 import 'package:uber/presentation/pages/map/logic/search_destination/search_destination_logic.dart';
-import 'package:uber/presentation/pages/map/widgets/map_widgets/location_icon.dart';
-
-class DoneButtonWithLocationIcon extends StatelessWidget {
-  const DoneButtonWithLocationIcon({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: REdgeInsets.symmetric(vertical: 35, horizontal: 15),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: const [
-            Align(
-                alignment: Alignment.centerRight,
-                child: MyLocationIcon(tag: "2"))
-          ],
-        ),
-      ),
-    );
-  }
-}
+import 'package:uber/presentation/pages/map/view/initial_map/initial_map_page.dart';
 
 class ResultsOfSearchText extends StatelessWidget {
   const ResultsOfSearchText({super.key});
@@ -49,29 +23,32 @@ class ResultsOfSearchText extends StatelessWidget {
     return GetBuilder<AppearanceOfSearchListLogic>(
       id: "pointer",
       initState: (state) {
-        Get.put(AppearanceOfSearchListLogic(), tag: "1");
+        Get.find<AppearanceOfSearchListLogic>(tag: "1");
       },
       tag: "1",
       builder: (controller) {
-        return Stack(
-          children: [
-            AnimatedPositioned(
-              top: controller.getPositionInTop,
-              bottom: 0,
-              left: 0,
-              right: 0,
-              duration: controller.disAppearTheResult
-                  ? const Duration(milliseconds: 200)
-                  : const Duration(milliseconds: 1),
-              child: Listener(
-                onPointerDown: controller.onListPointerDown,
-                onPointerUp: controller.onListPointerUp,
-                onPointerMove: (d) => controller.onListPointerMove(d, context),
-                child: const _GoogleMapBlocConsumer(),
+        return SafeArea(
+          child: Stack(
+            children: [
+              AnimatedPositioned(
+                top: controller.getPositionInTop,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                duration: controller.disAppearTheResult
+                    ? const Duration(milliseconds: 200)
+                    : const Duration(milliseconds: 1),
+                child: Listener(
+                  onPointerDown: controller.onListPointerDown,
+                  onPointerUp: controller.onListPointerUp,
+                  onPointerMove: (d) => controller.onListPointerMove(d, context),
+                  child: const _GoogleMapBlocConsumer(),
+                ),
               ),
-            ),
-            const Align(alignment: Alignment.topCenter, child: SearchBars()),
-          ],
+              if (!controller.getDisplayRidersMenu)
+                const Align(alignment: Alignment.topCenter, child: SearchBars()),
+            ],
+          ),
         );
       },
     );
@@ -163,7 +140,7 @@ class _PlaceSuggestionsList extends StatelessWidget {
 
                     if (!textFieldsController.isStartAndEndComplete) return;
 
-                    appearanceController.changeTheAppearing(disAppear: true);
+                    appearanceController.showRidersMenu();
                     Prediction? toPlaceIdPrediction =
                         textFieldsController.whereTo.value;
                     Prediction? fromPlacePrediction =
@@ -311,7 +288,7 @@ class _SearchTextFields extends StatelessWidget {
           children: [
             Listener(
               onPointerDown: (d) {
-                appearanceController.changeTheAppearing(disAppear: false);
+                appearanceController.showTheFlyingSuggestionsList();
                 textFieldsController.isWhereFromSelected.value = true;
                 textFieldsController.selectAllTextInFrom();
               },
@@ -323,7 +300,7 @@ class _SearchTextFields extends StatelessWidget {
             const RSizedBox(height: 10),
             Listener(
               onPointerDown: (d) {
-                appearanceController.changeTheAppearing(disAppear: false);
+                appearanceController.showTheFlyingSuggestionsList();
                 textFieldsController.isWhereFromSelected.value = false;
                 textFieldsController.selectAllTextInTo();
               },
@@ -374,7 +351,7 @@ class _SwitchRiderWidgets extends StatelessWidget {
         children: [
           GestureDetector(
               onTap: () {
-                Go.back();
+                Go.offAll(const MapScreen());
               },
               child: Icon(Icons.arrow_back, size: 30.r)),
           const Spacer(),

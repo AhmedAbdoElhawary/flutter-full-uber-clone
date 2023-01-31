@@ -60,7 +60,7 @@ class _BuildGoogleMap extends StatelessWidget {
   }
 
   List<LatLng> getPolyLinesPoints(PlacesDirection placesDirectionInfo) {
-    List<PointLatLng> latLngPoints =placesDirectionInfo.polylinePoints;
+    List<PointLatLng> latLngPoints = placesDirectionInfo.polylinePoints;
     List<LatLng> polyLines =
         latLngPoints.map((e) => LatLng(e.latitude, e.longitude)).toList();
     return polyLines;
@@ -97,8 +97,8 @@ class _BuildGoogleMap extends StatelessWidget {
             myLocationEnabled: true,
             zoomControlsEnabled: false,
             myLocationButtonEnabled: false,
-            compassEnabled:false,
-            mapToolbarEnabled:false,
+            compassEnabled: false,
+            mapToolbarEnabled: false,
             // tiltGesturesEnabled:false,
             initialCameraPosition:
                 mapControl.getMyCurrentLocationCameraPosition,

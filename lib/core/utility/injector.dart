@@ -88,7 +88,6 @@ Dio createAndSetupDio() {
     responseHeader: false,
     request: true,
     requestBody: true,
-
   ));
 
   return dio;
