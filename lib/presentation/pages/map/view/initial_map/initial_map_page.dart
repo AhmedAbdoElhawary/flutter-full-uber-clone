@@ -153,8 +153,11 @@ class _TheDynamicRidersAppBar extends StatelessWidget {
                 children: [
                   if (opacity == 1) ...[
                     const RSizedBox(width: 10),
-                    const Icon(Icons.arrow_downward_rounded,
-                        color: ColorManager.shimmerDarkGrey),
+                    GestureDetector(
+                      onTap:appearanceController.stepDownRidersMenu,
+                      child: const Icon(Icons.arrow_downward_rounded,
+                          color: ColorManager.shimmerDarkGrey),
+                    ),
                     const Spacer(flex: 4),
                     Text("Choose a ride",
                         style: getLightStyle(
@@ -283,9 +286,11 @@ class _HeadWidgetsOfRidersMenu extends StatelessWidget {
             child: Column(
               children: [
                 const _DashIcon(),
-                Text(
-                  mapLogic.pointsDirection.value?.totalDuration ?? "4 MIN",
-                  style: getMediumStyle(fontSize: 14),
+                Obx(
+                  () => Text(
+                    mapLogic.pointsDirection.value?.totalDuration ?? "4 MIN",
+                    style: getMediumStyle(fontSize: 14),
+                  ),
                 ),
                 const RSizedBox(height: 5),
                 Text(
