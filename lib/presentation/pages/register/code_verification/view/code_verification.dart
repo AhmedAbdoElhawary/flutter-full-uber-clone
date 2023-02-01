@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:uber/config/routes/route_app.dart';
 import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/core/resources/styles_manager.dart';
 import 'package:uber/presentation/common/widgets/custom_elevated_button.dart';
@@ -63,7 +64,7 @@ class CodeVerificationPage extends StatelessWidget {
                   },
                 ),
               ),
-              const _DidNotReceiveCodeButton(),
+              _DidNotReceiveCodeButton(mobilePhone: mobilePhone),
               const Spacer(),
               Padding(
                 padding: REdgeInsets.only(bottom: 35.0),
@@ -109,7 +110,9 @@ class _BuildNextButton extends StatelessWidget {
 }
 
 class _DidNotReceiveCodeButton extends StatelessWidget {
-  const _DidNotReceiveCodeButton({Key? key}) : super(key: key);
+  const _DidNotReceiveCodeButton({Key? key, required this.mobilePhone})
+      : super(key: key);
+  final String mobilePhone;
 
   @override
   Widget build(BuildContext context) {
@@ -129,15 +132,15 @@ class _DidNotReceiveCodeButton extends StatelessWidget {
     return showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
-        return const _CustomBottomSheet();
+        return _CustomBottomSheet(mobilePhone);
       },
     );
   }
 }
 
 class _CustomBottomSheet extends StatelessWidget {
-  const _CustomBottomSheet({Key? key}) : super(key: key);
-
+  const _CustomBottomSheet(this.mobilePhone, {Key? key}) : super(key: key);
+  final String mobilePhone;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -161,7 +164,11 @@ class _CustomBottomSheet extends StatelessWidget {
             CustomElevatedButton(
                 child: Text("Resend code via SMS",
                     style: getBoldStyle(fontSize: 17)),
-                onPressed: () {}),
+                onPressed: () async {
+                  await FirebaseAuthCubit.get(context)
+                      .submitPhoneNumber(mobilePhone);
+                  Go.back();
+                }),
             const RSizedBox(height: 18),
             CustomElevatedButton(
                 child: Text("Send code via WhatsApp",
