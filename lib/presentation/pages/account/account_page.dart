@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:uber/core/resources/color_manager.dart';
 import 'package:uber/core/resources/styles_manager.dart';
+import 'package:uber/core/utility/app_prefs.dart';
+import 'package:uber/core/utility/injector.dart';
 import 'package:uber/presentation/cubit/firebaseAuthCubit/firebase_auth_cubit.dart';
 import 'package:uber/presentation/pages/register/register_page/view/register_page.dart';
 
@@ -190,6 +192,8 @@ class _StartCount extends StatelessWidget {
         child: GestureDetector(
           onTap: () async {
             await FirebaseAuthCubit.get(context).logOut();
+            final AppPreferences sharePrefs = injector<AppPreferences>();
+            await sharePrefs.logout();
             Get.offAll(const RegisterPage());
           },
           child: Row(
