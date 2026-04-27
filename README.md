@@ -1,5 +1,4 @@
 # flutter-full-uber-clone
-## Under construction
 
 ## SnapShots
 
