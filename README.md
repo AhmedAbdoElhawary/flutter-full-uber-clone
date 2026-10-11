@@ -16,7 +16,6 @@ Sign in with your phone, pick a destination on the map, see the route, and choos
 - **Live location**: the map opens at your current position
 - **Destination search**: place suggestions while you type (Google Places)
 - **Route on map**: the path from you to your destination is drawn on the map
-- **Ride options**: a slide-up menu to compare ride types and prices
 - **Light & dark themes**, plus **Arabic & English** support
 
 ## Built with
